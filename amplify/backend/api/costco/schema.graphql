@@ -1,0 +1,15 @@
+type coupon @model 
+  {
+  id: ID!
+  dateValid: String
+  itemNumber: String
+  itemName: String
+  itemDescription: String
+  itemOther: String
+  itemVaries: String
+  itemShipping: String
+  itemYourCost: String
+  itemDiscountDollar: String
+  itemDiscountCents: String
+  itemDiscountLimit: String
+}

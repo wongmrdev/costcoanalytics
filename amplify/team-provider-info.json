@@ -1,0 +1,35 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-costco-dev-22420-authRole",
+      "UnauthRoleArn": "arn:aws:iam::440216772824:role/amplify-costco-dev-22420-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::440216772824:role/amplify-costco-dev-22420-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-costco-dev-22420-deployment",
+      "UnauthRoleName": "amplify-costco-dev-22420-unauthRole",
+      "StackName": "amplify-costco-dev-22420",
+      "StackId": "arn:aws:cloudformation:us-west-2:440216772824:stack/amplify-costco-dev-22420/7f69e970-ac0a-11eb-a84b-06c940f8e023",
+      "AmplifyAppId": "d2ma2xsnuu3nlm"
+    },
+    "categories": {
+      "function": {
+        "costco71e27d08DefineAuthChallenge": {
+          "deploymentBucketName": "amplify-costco-dev-22420-deployment",
+          "s3Key": "amplify-builds/costco71e27d08DefineAuthChallenge-357366762f4e6661716e-build.zip"
+        },
+        "costco71e27d08CreateAuthChallenge": {
+          "deploymentBucketName": "amplify-costco-dev-22420-deployment",
+          "s3Key": "amplify-builds/costco71e27d08CreateAuthChallenge-4b52466b512f776f4c5a-build.zip"
+        },
+        "costco71e27d08VerifyAuthChallengeResponse": {
+          "RECAPTCHASECRET": "6LeWRroaAAAAAIvnIVHJSM5O4EOQ7MrmDcv29DE2",
+          "deploymentBucketName": "amplify-costco-dev-22420-deployment",
+          "s3Key": "amplify-builds/costco71e27d08VerifyAuthChallengeResponse-68775531476d2b713849-build.zip"
+        }
+      },
+      "auth": {
+        "costco71e27d08": {}
+      }
+    }
+  }
+}

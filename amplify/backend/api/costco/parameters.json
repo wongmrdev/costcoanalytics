@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "costco",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authcostco71e27d08",
+      "Outputs.UserPoolId"
+    ]
+  }
+}
