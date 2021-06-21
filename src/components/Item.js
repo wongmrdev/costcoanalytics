@@ -11,8 +11,8 @@ const StyledSpan = styled.span`
   min-width: 200px;
   padding: 5px;
   border-width: 3px;
-  border-style: solid;
-  border-image: linear-gradient(to right, black, white, black) ;
+  border-style: dotted;
+  border-color: red;
   border-image-slice: 30%;
   margin: 5px;
 `;
