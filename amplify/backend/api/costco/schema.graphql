@@ -1,4 +1,4 @@
-type coupon @model 
+type coupon @model
   {
   id: ID!
   dateValid: String

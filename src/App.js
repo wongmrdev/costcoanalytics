@@ -36,15 +36,15 @@ const StyledItemName = styled.span`
 `
 function App() {
 
-  const [coupons, setCoupons] = useState([])
+  const [coupons, setCoupons] = useState([]) //array of objects expected
   const [selectedCouponID, setselectedCouponID] = useState('')
-  const selectedCoupon = selectedCouponID !== '' ? coupons.find(coupon => selectedCouponID === coupon.id) : {itemNumber: "no selected item", itemName: "no selected item"}
+  const selectedCoupon = selectedCouponID !== '' ? coupons.find(coupon => selectedCouponID === coupon.id) : { itemNumber: "no selected item", itemName: "no selected item" }
   const couponContextValue = {
     selectedCoupon
   }
   useEffect(() => {
     async function fetchData() {
-      var couponsGot = await API.graphql({ query: queries.listCoupons, variables: { limit: 300 } })
+      var couponsGot = await API.graphql({ query: queries.listCoupons, variables: { limit: 1500 } })
       console.log(couponsGot.data.listCoupons.items)
       setCoupons(couponsGot.data.listCoupons.items)
     }
@@ -57,19 +57,19 @@ function App() {
 
       return
     } else {
-          setselectedCouponID(id)
+      setselectedCouponID(id)
     }
   }
-  
-  
-  
+
+
+
   return (
     <div className="App">
       <header className="App-header">
         <AmplifySignOut />
         <StyledLogo>
           Costco Analytics
-          
+
         </StyledLogo>
         <StyledItemName>
           {selectedCoupon.itemName}

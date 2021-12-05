@@ -24,11 +24,12 @@
         "costco71e27d08VerifyAuthChallengeResponse": {
           "RECAPTCHASECRET": "6LeWRroaAAAAAIvnIVHJSM5O4EOQ7MrmDcv29DE2",
           "deploymentBucketName": "amplify-costco-dev-22420-deployment",
-          "s3Key": "amplify-builds/costco71e27d08VerifyAuthChallengeResponse-68775531476d2b713849-build.zip"
+          "s3Key": "amplify-builds/costco71e27d08VerifyAuthChallengeResponse-364e55535a5a6d503069-build.zip"
         }
       },
       "auth": {
-        "costco71e27d08": {}
+        "costco71e27d08": {},
+        "userPoolGroups": {}
       }
     }
   }

@@ -14,6 +14,7 @@ const StyledSpan = styled.span`
   border-style: dotted;
   border-color: red;
   border-image-slice: 30%;
+  border-radius: 5%;
   margin: 5px;
 `;
 const StyledDateValid = styled.span`
