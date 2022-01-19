@@ -43,10 +43,25 @@ const dateTransformer2 = function (regexExecGroups) {
     let endYear = regexExecGroups[10]
     return { beginMonth: beginMonth, endMonth: endMonth, beginDay: beginDay, endDay: endDay, beginYear: beginYear, endYear: endYear }
 }
-console.log("Scanning Coupons table.");
-docClient.scan(params, regexDateValidUpdateOnScan(regex1, dateTransformer1)); //this function call scans for all coupons and updates the dateValid with a standard formatter
-docClient.scan(params, regexDateValidUpdateOnScan(regex2, dateTransformer2)); //this function call scans for all coupons and updates the dateValid with a standard formatter
+//console.log("Valid December 29, 2021 - January 23, 2022");
+//don't forget to check the capture groups
+const regex3 = new RegExp("Valid (january|february|march|april|may|june|july|august|september|october|november|december)([\\s,]+)(\\d{1,2})([, ]+)(\\d{4})([, ]+)-([\\s,]+)(january|february|march|april|may|june|july|august|september|october|november|december)([\\s,]+)(\\d{1,2})([, ]+)(\\d{4})", "i")
+const dateTransformer3 = function (regexExecGroups) {
+    let beginMonthAsLetters = regexExecGroups[1]
+    let endMonthAsLetters = regexExecGroups[8]
+    let beginMonth = getYearNumberFromMonthAsLetters(beginMonthAsLetters)
+    let endMonth = getYearNumberFromMonthAsLetters(endMonthAsLetters)
+    let beginDay = regexExecGroups[3]
+    let endDay = regexExecGroups[10]
+    let beginYear = regexExecGroups[5]
+    let endYear = regexExecGroups[12]
+    return { beginMonth: beginMonth, endMonth: endMonth, beginDay: beginDay, endDay: endDay, beginYear: beginYear, endYear: endYear }
+}
 
+console.log("Scanning Coupons table.");
+//docClient.scan(params, regexDateValidUpdateOnScan(regex1, dateTransformer1)); //this function call scans for all coupons and updates the dateValid with a standard formatter
+//docClient.scan(params, regexDateValidUpdateOnScan(regex2, dateTransformer2)); //this function call scans for all coupons and updates the dateValid with a standard formatter
+docClient.scan(params, regexDateValidUpdateOnScan(regex3, dateTransformer3)); //this function call scans for all coupons and updates the dateValid with a standard formatter
 
 function regexDateValidUpdateOnScan(regex, dateTransformer) { //Constructor to take in any regex and it's helper date transformation function and output a callback to DynamoDB.scan(err, callback)
     return function (err, data) { //return a dynamic function to call in scan

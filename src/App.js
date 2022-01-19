@@ -99,7 +99,7 @@ function App() {
       <header className="App-header">
         <AmplifySignOut />
         <StyledLogo>
-          Costco Analytics
+          NemoNemoNemo
 
         </StyledLogo>
         <StyledItemName>
