@@ -13,18 +13,12 @@
     },
     "categories": {
       "function": {
-        "costco71e27d08DefineAuthChallenge": {
+        "costco71e27d08CustomMessage": {
+          "REDIRECTURL": "/",
+          "EMAILSUBJECT": "Verify Your Account - nemonemonemo",
+          "EMAILMESSAGE": "Please use the link to verify your account",
           "deploymentBucketName": "amplify-costco-dev-22420-deployment",
-          "s3Key": "amplify-builds/costco71e27d08DefineAuthChallenge-357366762f4e6661716e-build.zip"
-        },
-        "costco71e27d08CreateAuthChallenge": {
-          "deploymentBucketName": "amplify-costco-dev-22420-deployment",
-          "s3Key": "amplify-builds/costco71e27d08CreateAuthChallenge-4b52466b512f776f4c5a-build.zip"
-        },
-        "costco71e27d08VerifyAuthChallengeResponse": {
-          "RECAPTCHASECRET": "6LeWRroaAAAAAIvnIVHJSM5O4EOQ7MrmDcv29DE2",
-          "deploymentBucketName": "amplify-costco-dev-22420-deployment",
-          "s3Key": "amplify-builds/costco71e27d08VerifyAuthChallengeResponse-364e55535a5a6d503069-build.zip"
+          "s3Key": "amplify-builds/costco71e27d08CustomMessage-7533444d37515a57544f-build.zip"
         }
       },
       "auth": {

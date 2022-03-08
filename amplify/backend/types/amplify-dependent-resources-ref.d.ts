@@ -1,18 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
     "function": {
-        "costco71e27d08DefineAuthChallenge": {
-            "Name": "string",
-            "Arn": "string",
-            "LambdaExecutionRole": "string",
-            "Region": "string"
-        },
-        "costco71e27d08CreateAuthChallenge": {
-            "Name": "string",
-            "Arn": "string",
-            "LambdaExecutionRole": "string",
-            "Region": "string"
-        },
-        "costco71e27d08VerifyAuthChallengeResponse": {
+        "costco71e27d08CustomMessage": {
             "Name": "string",
             "Arn": "string",
             "LambdaExecutionRole": "string",
@@ -21,8 +9,6 @@ export type AmplifyDependentResourcesAttributes = {
     },
     "auth": {
         "costco71e27d08": {
-            "IdentityPoolId": "string",
-            "IdentityPoolName": "string",
             "HostedUIDomain": "string",
             "OAuthMetadata": "string",
             "UserPoolId": "string",

@@ -1,14 +1,17 @@
-import './App.css';
-import { Amplify, Auth, API } from 'aws-amplify';
-import awsConfig from './aws-exports';
-import * as queries from './graphql/queries';
-import React, { useState, useEffect, } from 'react';
+
 import Item from './components/Item';
 import styled from "styled-components";
 import Canvas from "./components/Canvas.js";
-import { Authenticator } from '@aws-amplify/ui-react';
+import React, { useState, useEffect, } from 'react';
+import * as queries from './graphql/queries';
+import './App.css';
+
+
+import { AmplifyProvider, Button, Card, Text, Heading, Flex, Badge, createTheme, Image, View, StepperField, Rating, useTheme, Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
+import { Amplify, API } from 'aws-amplify';
 import { theme } from './theme';
+import awsExports from './aws-exports';
 
 const isLocalhost = Boolean(
     window.location.hostname === "localhost" ||
@@ -20,28 +23,27 @@ const isLocalhost = Boolean(
     )
 );
 
-// Assuming you have two redirect URIs, and the first is for localhost and second is for production
 const [
     localRedirectSignIn,
     productionRedirectSignIn,
-] = awsConfig.oauth.redirectSignIn.split(",");
+] = awsExports.oauth.redirectSignIn.split(",");
 
 const [
     localRedirectSignOut,
     productionRedirectSignOut,
-] = awsConfig.oauth.redirectSignOut.split(",");
+] = awsExports.oauth.redirectSignOut.split(",");
 
-const updatedAwsConfig = {
-    ...awsConfig,
+const updatedAwsExports = {
+    ...awsExports,
     oauth: {
-        ...awsConfig.oauth,
+        ...awsExports.oauth,
         redirectSignIn: isLocalhost ? localRedirectSignIn : productionRedirectSignIn,
         redirectSignOut: isLocalhost ? localRedirectSignOut : productionRedirectSignOut,
     }
 }
-Amplify.configure(updatedAwsConfig);
-// Auth.configure(updatedAwsConfig);
-API.configure(updatedAwsConfig);
+
+Amplify.configure(updatedAwsExports);
+
 export const CouponContext = React.createContext() //allow global access of variables and functions, 
 //must add Context Wrapper Provider with prop of the objects or functions to make global 
 //<RecipeContext.Provider value={recipeContextValue}></RecipeContext.Provider>
@@ -66,15 +68,16 @@ const StyledLogo = styled.span`
 const StyledItemName = styled.span`
   font-size: 1.5rem;
   color: black;
-`
-function App() {
-
+  `
+const TopLevel = () => {
+    const { tokens } = useTheme();
     const [coupons, setCoupons] = useState([]) //array of objects expected
     const [selectedCouponID, setselectedCouponID] = useState('')
     const selectedCoupon = selectedCouponID !== '' ? coupons.find(coupon => selectedCouponID === coupon.id) : { itemNumber: "no selected item", itemName: "no selected item" }
     const couponContextValue = {
         selectedCoupon
     }
+
     useEffect(() => {
         async function fetchData() {
             var couponsGot = await API.graphql({ query: queries.listCoupons, variables: { limit: 1500 } })
@@ -93,9 +96,6 @@ function App() {
             setselectedCouponID(id)
         }
     }
-
-
-
     return (
         <Authenticator>
             {({ signOut, user }) => (
@@ -131,7 +131,14 @@ function App() {
             )}
         </Authenticator>
 
-    );
+
+    )
 }
 
-export default App;
+export default function App() {
+    return (
+        <AmplifyProvider theme={theme}>
+            <TopLevel />
+        </AmplifyProvider>
+    )
+}

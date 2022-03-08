@@ -1,11 +1,23 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Lambda resource stack creation using Amplify CLI",
+  "Description": "{\"createdOn\":\"Windows\",\"createdBy\":\"Amplify\",\"createdWith\":\"7.6.5\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
+    "REDIRECTURL": {
+      "Type": "String",
+      "Default": ""
+    },
+    "EMAILMESSAGE": {
+      "Type": "String",
+      "Default": ""
+    },
+    "EMAILSUBJECT": {
+      "Type": "String",
+      "Default": ""
+    },
     "modules": {
       "Type": "String",
       "Default": "",
-      "Description": "Comma-delimmited list of modules to be executed by a lambda trigger. Sent to resource as an env variable."
+      "Description": "Comma-delimited list of modules to be executed by a lambda trigger. Sent to resource as an env variable."
     },
     "resourceName": {
       "Type": "String",
@@ -63,12 +75,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "costco71e27d08DefineAuthChallenge",
+            "costco71e27d08CustomMessage",
             {
               "Fn::Join": [
                 "",
                 [
-                  "costco71e27d08DefineAuthChallenge",
+                  "costco71e27d08CustomMessage",
                   "-",
                   {
                     "Ref": "env"
@@ -88,6 +100,18 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
+            },
+            "REDIRECTURL": {
+              "Ref": "REDIRECTURL"
+            },
+            "EMAILSUBJECT": {
+              "Ref": "EMAILSUBJECT"
+            },
+            "EMAILMESSAGE": {
+              "Ref": "EMAILMESSAGE"
+            },
+            "RESOURCENAME": {
+              "Ref": "resourceName"
             }
           }
         },
@@ -98,7 +122,7 @@
           ]
         },
         "Runtime": "nodejs14.x",
-        "Timeout": "25",
+        "Timeout": 25,
         "Code": {
           "S3Bucket": {
             "Ref": "deploymentBucketName"
@@ -115,12 +139,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "costco71e27d08DefineAuthChallenge",
+            "costco71e27d08CustomMessage",
             {
               "Fn::Join": [
                 "",
                 [
-                  "costco71e27d08DefineAuthChallenge",
+                  "costco71e27d08CustomMessage",
                   "-",
                   {
                     "Ref": "env"

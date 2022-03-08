@@ -1,8 +1,6 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "costco71e27d08_identitypool_71e27d08",
-    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "costco71e27d08",
     "userPoolName": "costco71e27d08_userpool_71e27d08",
     "autoVerifiedAttributes": [
@@ -34,15 +32,15 @@
     ],
     "userpoolClientLambdaRole": "costco71e27d08_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "authSelections": "identityPoolAndUserPool",
+    "authSelections": "userPoolOnly",
     "resourceName": "costco71e27d08",
     "serviceName": "Cognito",
-    "useDefault": "defaultSocial",
+    "useDefault": "manual",
     "sharedId": "71e27d08",
     "userPoolGroupList": [
       "costco"
     ],
-    "userPoolGroups": true,
+    "userPoolGroups": false,
     "usernameAttributes": [
       "email, phone_number"
     ],
@@ -51,14 +49,8 @@
     "adminQueries": false,
     "hostedUI": true,
     "triggers": {
-      "DefineAuthChallenge": [
-        "captcha-define-challenge"
-      ],
-      "CreateAuthChallenge": [
-        "captcha-create-challenge"
-      ],
-      "VerifyAuthChallengeResponse": [
-        "captcha-verify"
+      "CustomMessage": [
+        "verification-link"
       ]
     },
     "authRoleArn": {
@@ -78,25 +70,7 @@
     "dependsOn": [
       {
         "category": "function",
-        "resourceName": "costco71e27d08DefineAuthChallenge",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      },
-      {
-        "category": "function",
-        "resourceName": "costco71e27d08CreateAuthChallenge",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      },
-      {
-        "category": "function",
-        "resourceName": "costco71e27d08VerifyAuthChallengeResponse",
+        "resourceName": "costco71e27d08CustomMessage",
         "triggerProvider": "Cognito",
         "attributes": [
           "Arn",
@@ -115,10 +89,10 @@
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\",\"https://master.d2ma2xsnuu3nlm.amplifyapp.com/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
-    "authProviders": [],
     "parentStack": {
       "Ref": "AWS::StackId"
-    }
+    },
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\",\"https://master.d2ma2xsnuu3nlm.amplifyapp.com/\"],\"LogoutURLs\":[\"http://localhost:3000/\",\"https://master.d2ma2xsnuu3nlm.amplifyapp.com/\"]}",
+    "authProviders": []
   }
 }

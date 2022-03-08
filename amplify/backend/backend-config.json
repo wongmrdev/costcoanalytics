@@ -1,16 +1,6 @@
 {
   "function": {
-    "costco71e27d08DefineAuthChallenge": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "costco71e27d08CreateAuthChallenge": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "costco71e27d08VerifyAuthChallengeResponse": {
+    "costco71e27d08CustomMessage": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -23,25 +13,7 @@
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "costco71e27d08DefineAuthChallenge",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "costco71e27d08CreateAuthChallenge",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "costco71e27d08VerifyAuthChallengeResponse",
+          "resourceName": "costco71e27d08CustomMessage",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -61,8 +33,7 @@
           "attributes": [
             "UserPoolId",
             "AppClientIDWeb",
-            "AppClientID",
-            "IdentityPoolId"
+            "AppClientID"
           ]
         }
       ]
