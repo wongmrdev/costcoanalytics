@@ -80,9 +80,7 @@
     ],
     "permissions": [],
     "authTriggerConnections": [
-      "{\"triggerType\":\"DefineAuthChallenge\",\"lambdaFunctionName\":\"costco71e27d08DefineAuthChallenge\"}",
-      "{\"triggerType\":\"CreateAuthChallenge\",\"lambdaFunctionName\":\"costco71e27d08CreateAuthChallenge\"}",
-      "{\"triggerType\":\"VerifyAuthChallengeResponse\",\"lambdaFunctionName\":\"costco71e27d08VerifyAuthChallengeResponse\"}"
+      "{\"triggerType\":\"CustomMessage\",\"lambdaFunctionName\":\"costco71e27d08CustomMessage\"}"
     ],
     "hostedUIDomainName": "costcobfad9e78-bfad9e78",
     "authProvidersUserPool": [
@@ -92,7 +90,7 @@
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\",\"https://master.d2ma2xsnuu3nlm.amplifyapp.com/\"],\"LogoutURLs\":[\"http://localhost:3000/\",\"https://master.d2ma2xsnuu3nlm.amplifyapp.com/\"]}",
-    "authProviders": []
+    "authProviders": [],
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\",\"https://master.d2ma2xsnuu3nlm.amplifyapp.com/\"],\"LogoutURLs\":[\"http://localhost:3000/\",\"https://master.d2ma2xsnuu3nlm.amplifyapp.com/\"]}"
   }
 }
