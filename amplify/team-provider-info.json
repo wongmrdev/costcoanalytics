@@ -24,6 +24,12 @@
       "auth": {
         "costco71e27d08": {},
         "userPoolGroups": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2ma2xsnuu3nlm",
+          "type": "cicd"
+        }
       }
     }
   }
