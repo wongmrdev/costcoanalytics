@@ -30,6 +30,7 @@ const dateTransformer1 = function (regexExecGroups) {
     return { beginMonth: beginMonth, endMonth: endMonth, beginDay: beginDay, endDay: endDay, beginYear: beginYear, endYear: endYear }
 }
 //Valid March 9 - April 3, 2022
+//Valid April 13 - May 8, 2022
 //console.log("Valid September 29 - October 24, 2021");
 const regex2 = new RegExp("Valid (january|february|march|april|may|june|july|august|september|october|november|december)([\\s,]+)(\\d{1,2})([\\s,]+)-([\\s,]+)(january|february|march|april|may|june|july|august|september|october|november|december)([\\s,]+)(\\d{1,2})([, ]+)(\\d{4})", "i")
 const dateTransformer2 = function (regexExecGroups) {

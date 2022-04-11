@@ -133,6 +133,7 @@ async function getCoupons() {
       const body = {
         message: "successfully created Coupon!"
       }
+      console.log(body)
       return {
         statusCode: 200,
         body: JSON.stringify(body),

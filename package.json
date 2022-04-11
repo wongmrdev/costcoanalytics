@@ -7,14 +7,14 @@
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
-    "aws-amplify": "^4.3.12",
+    "aws-amplify": "^3.3.27",
     "aws-sdk": "^2.1043.0",
     "chart.js": "^3.6.2",
     "react": "^17.0.2",
     "react-chartjs-2": "^3.3.0",
     "react-dom": "^17.0.2",
-    "react-scripts": "^5.0.0",
-    "styled-components": "^5.3.3",
+    "react-scripts": "^4.0.3",
+    "styled-components": "^5.2.3",
     "web-vitals": "^1.1.1"
   },
   "scripts": {
@@ -46,6 +46,7 @@
     "dotenv": "^8.2.0",
     "graphql": "^14.0.0",
     "graphql-tag": "^2.12.4",
-    "modern-random-ua": "^1.0.3"
+    "modern-random-ua": "^1.0.3",
+    "puppeteer": "^13.5.2"
   }
 }
