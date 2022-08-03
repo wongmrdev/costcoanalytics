@@ -15,7 +15,8 @@ var params = {
   ProjectionExpression: "id, itemNumber, dateValid, createdAt",
 };
 //
-//console.log("Setting Regex for type Valid September 1 -  26, 2021'");
+// console.log("Setting Regex for type Valid September 1 -  26, 2021'");
+// Valid August 3 - 28, 2022
 const regex1 = new RegExp(
   "Valid (january|february|march|april|may|june|july|august|september|october|november|december)([\\s,]+)(\\d{1,2})([\\s,]+)-([\\s,]+)(\\d{1,2})([, ]+)(\\d{4})",
   "i"
@@ -38,12 +39,13 @@ const dateTransformer1 = function (regexExecGroups) {
     endYear: endYear,
   };
 };
-//Valid March 9 - April 3, 2022
-//Valid April 13 - May 8, 2022
-//Valid May 18 - June 12, 2022
-//console.log("Valid September 29 - October 24, 2021");
+// Valid March 9 - April 3, 2022
+// Valid April 13 - May 8, 2022
+// Valid May 18 - June 12, 2022
+// Valid June 22 to July 24, 2022
+// console.log("Valid September 29 - October 24, 2021");
 const regex2 = new RegExp(
-  "Valid (january|february|march|april|may|june|july|august|september|october|november|december)([\\s,]+)(\\d{1,2})([\\s,]+)-([\\s,]+)(january|february|march|april|may|june|july|august|september|october|november|december)([\\s,]+)(\\d{1,2})([, ]+)(\\d{4})",
+  "Valid (january|february|march|april|may|june|july|august|september|october|november|december)([\\s,]+)(\\d{1,2})([\\s,]+)(-|to)([\\s,]+)(january|february|march|april|may|june|july|august|september|october|november|december)([\\s,]+)(\\d{1,2})([, ]+)(\\d{4})",
   "i"
 );
 const dateTransformer2 = function (regexExecGroups) {
@@ -64,8 +66,8 @@ const dateTransformer2 = function (regexExecGroups) {
     endYear: endYear,
   };
 };
-//console.log("Valid December 29, 2021 - January 23, 2022");
-//don't forget to check the capture groups
+// console.log("Valid December 29, 2021 - January 23, 2022");
+// Don't forget to check the capture groups
 const regex3 = new RegExp(
   "Valid (january|february|march|april|may|june|july|august|september|october|november|december)([\\s,]+)(\\d{1,2})([, ]+)(\\d{4})([, ]+)-([\\s,]+)(january|february|march|april|may|june|july|august|september|october|november|december)([\\s,]+)(\\d{1,2})([, ]+)(\\d{4})",
   "i"
@@ -88,7 +90,7 @@ const dateTransformer3 = function (regexExecGroups) {
     endYear: endYear,
   };
 };
-//Valid February 2 to 27, 2022
+// Valid February 2 to 27, 2022
 const regex4 = new RegExp(
   "Valid (january|february|march|april|may|june|july|august|september|october|november|december)([\\s,]+)(\\d{1,2})([\\s,]+)to([\\s,]+)(\\d{1,2})([, ]+)(\\d{4})",
   "i"
@@ -111,10 +113,31 @@ const dateTransformer4 = function (regexExecGroups) {
     endYear: endYear,
   };
 };
+// Valid February 2 to 27, 2022
+// Valid August 3 - 28, 2022
+const regex5 = new RegExp("Valid 6/22/, {2}- no matching month/ /, ", "i");
+const dateTransformer5 = function (regexExecGroups) {
+  let beginMonthAsLetters = regexExecGroups[1];
+  let endMonthAsLetters = regexExecGroups[1];
+  let beginMonth = getYearNumberFromMonthAsLetters(beginMonthAsLetters);
+  let endMonth = getYearNumberFromMonthAsLetters(endMonthAsLetters);
+  let beginDay = regexExecGroups[3];
+  let endDay = regexExecGroups[6];
+  let beginYear = regexExecGroups[8];
+  let endYear = regexExecGroups[8];
+  return {
+    beginMonth: "6",
+    endMonth: "7",
+    beginDay: "22",
+    endDay: "24",
+    beginYear: "22",
+    endYear: "22",
+  };
+};
 console.log("Scanning Coupons table.");
 //docClient.scan(params, regexDateValidUpdateOnScan(regex1, dateTransformer1)); //this function call scans for all coupons and updates the dateValid with a standard formatter
 //docClient.scan(params, regexDateValidUpdateOnScan(regex2, dateTransformer2)); //this function call scans for all coupons and updates the dateValid with a standard formatter
-docClient.scan(params, regexDateValidUpdateOnScan(regex2, dateTransformer2)); //this function call scans for all coupons and updates the dateValid with a standard formatter
+docClient.scan(params, regexDateValidUpdateOnScan(regex1, dateTransformer1)); //this function call scans for all coupons and updates the dateValid with a standard formatter
 
 function regexDateValidUpdateOnScan(regex, dateTransformer) {
   //Constructor to take in any regex and it's helper date transformation function and output a callback to DynamoDB.scan(err, callback)
@@ -187,12 +210,8 @@ function regexDateValidUpdateOnScan(regex, dateTransformer) {
           };
           //UpdateItems with ID and Transformed DateValid
           docClient.update(updateParams, function (err, data) {
-            if (err)
-              console.log(
-                "error in the updateItem",
-                err,
-                err.stack
-              ); // an error occurred
+            if (err) console.log("error in the updateItem", err, err.stack);
+            // an error occurred
             else
               console.log(`successfully updated to: ${JSON.stringify(data)}`);
           });

@@ -87,7 +87,7 @@ function App() {
     async function fetchData() {
       var couponsGot = await API.graphql({
         query: queries.listCoupons,
-        variables: { limit: 2000 },
+        variables: { limit: 3000 },
       });
       console.log(couponsGot.data.listCoupons.items);
       setCoupons(couponsGot.data.listCoupons.items);
