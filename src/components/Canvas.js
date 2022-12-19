@@ -11,10 +11,12 @@ export default function Canvas() {
     async function fetchData() {
       try {
         var selectedCouponData = await API.graphql({
-          query: queries.couponByItemNumber,
+          query: queries.couponsByItemNumber,
           variables: { itemNumber: selectedCoupon.itemNumber },
         });
-        setSelectedCouponData(selectedCouponData.data.couponByItemNumber.items);
+        setSelectedCouponData(
+          selectedCouponData.data.couponsByItemNumber.items
+        );
       } catch (err) {
         console.error(err);
       }

@@ -8,7 +8,7 @@ import styled from "styled-components";
 import Canvas from "./components/Canvas.js";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-
+import useDebounce from "./components/useDebounce";
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
     // [::1] is the IPv6 localhost address.
@@ -68,15 +68,21 @@ const StyledLogo = styled.span`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
+const StyledInput = styled.input`
+  font-size: 1.5rem;
+  color: black;
+`;
+
 const StyledItemName = styled.span`
   font-size: 1.5rem;
   color: black;
 `;
 function App() {
-  console.log("rendering app");
-
+  console.log({ App: "rendering App" });
   const [coupons, setCoupons] = useState([]); //array of objects expected
   const [selectedCouponId, setSelectedCouponId] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const debouncedSearchValue = useDebounce(searchValue, 1500);
   const [nextToken, setNextToken] = useState(null);
   const selectedCoupon = useMemo(() => {
     return selectedCouponId !== ""
@@ -89,18 +95,20 @@ function App() {
   };
 
   useEffect(() => {
+    console.log({ App: "useEffect to load search" });
     async function fetchData() {
       var couponsGot = await API.graphql({
         query: queries.listCoupons,
         variables: {
-          limit: 30,
+          limit: 4000,
+          filter: { itemName: { contains: debouncedSearchValue } },
         },
       });
       setCoupons(couponsGot.data.listCoupons.items);
       setNextToken(couponsGot.data.nextToken);
     }
     fetchData();
-  }, []);
+  }, [debouncedSearchValue]);
 
   function handleCouponSelect(id) {
     if (id === selectedCouponId) {
@@ -117,6 +125,15 @@ function App() {
           <header className="App-header">
             <button onClick={signOut}>Sign out</button>
             <StyledLogo>NemoNemoNemo</StyledLogo>
+            <StyledInput
+              placeholder="Search..."
+              type="text"
+              value={searchValue}
+              onChange={(e) => {
+                console.log("fire onchange");
+                setSearchValue(e.target.value);
+              }}
+            ></StyledInput>
             <StyledItemName>{selectedCoupon.itemName}</StyledItemName>
           </header>
           <CouponContext.Provider value={couponContextValue}>

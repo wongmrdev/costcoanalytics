@@ -18,7 +18,7 @@
           "EMAILSUBJECT": "Verify Your Account - nemonemonemo",
           "EMAILMESSAGE": "Please use the link to verify your account",
           "deploymentBucketName": "amplify-costco-dev-22420-deployment",
-          "s3Key": "amplify-builds/costco71e27d08CustomMessage-614b396c54506a793959-build.zip"
+          "s3Key": "amplify-builds/costco71e27d08CustomMessage-7533444d37515a57544f-build.zip"
         }
       },
       "auth": {

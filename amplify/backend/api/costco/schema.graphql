@@ -1,9 +1,15 @@
 type coupon
   @model
+  @auth(rules: [{ allow: owner, operations: [create, delete, update] }])
   @key(
     name: "couponsByItemNumber"
     fields: ["itemNumber"]
-    queryField: "couponByItemNumber"
+    queryField: "couponsByItemNumber"
+  )
+  @key(
+    name: "couponsByItemName"
+    fields: ["itemName"]
+    queryField: "couponsByItemName"
   ) {
   id: ID!
   dateValid: String
