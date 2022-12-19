@@ -1,14 +1,13 @@
 import "./App.css";
-import { Amplify, Auth, API } from "aws-amplify";
+import { Amplify, API } from "aws-amplify";
 import awsConfig from "./aws-exports";
 import * as queries from "./graphql/queries";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Item from "./components/Item";
 import styled from "styled-components";
 import Canvas from "./components/Canvas.js";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import { theme } from "./theme";
 
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
@@ -74,32 +73,40 @@ const StyledItemName = styled.span`
   color: black;
 `;
 function App() {
+  console.log("rendering app");
+
   const [coupons, setCoupons] = useState([]); //array of objects expected
-  const [selectedCouponID, setselectedCouponID] = useState("");
-  const selectedCoupon =
-    selectedCouponID !== ""
-      ? coupons.find((coupon) => selectedCouponID === coupon.id)
+  const [selectedCouponId, setSelectedCouponId] = useState("");
+  const [nextToken, setNextToken] = useState(null);
+  const selectedCoupon = useMemo(() => {
+    return selectedCouponId !== ""
+      ? coupons.find((coupon) => selectedCouponId === coupon.id)
       : { itemNumber: "no selected item", itemName: "no selected item" };
+  }, [selectedCouponId, coupons]);
+
   const couponContextValue = {
     selectedCoupon,
   };
+
   useEffect(() => {
     async function fetchData() {
       var couponsGot = await API.graphql({
         query: queries.listCoupons,
-        variables: { limit: 3000 },
+        variables: {
+          limit: 30,
+        },
       });
-      console.log(couponsGot.data.listCoupons.items);
       setCoupons(couponsGot.data.listCoupons.items);
+      setNextToken(couponsGot.data.nextToken);
     }
     fetchData();
   }, []);
 
   function handleCouponSelect(id) {
-    if (id === selectedCouponID) {
+    if (id === selectedCouponId) {
       return;
     } else {
-      setselectedCouponID(id);
+      setSelectedCouponId(id);
     }
   }
 

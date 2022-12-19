@@ -1,5 +1,10 @@
-type coupon @model
-  {
+type coupon
+  @model
+  @key(
+    name: "couponsByItemNumber"
+    fields: ["itemNumber"]
+    queryField: "couponByItemNumber"
+  ) {
   id: ID!
   dateValid: String
   itemNumber: String

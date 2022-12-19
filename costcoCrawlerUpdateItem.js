@@ -39,6 +39,9 @@ const dateTransformer1 = function (regexExecGroups) {
     endYear: endYear,
   };
 };
+// Valid October 26th - November 20, 2022
+// Valid September 28 - October 23, 2022
+// Valid August 31 - September 25, 2022
 // Valid March 9 - April 3, 2022
 // Valid April 13 - May 8, 2022
 // Valid May 18 - June 12, 2022
@@ -50,13 +53,13 @@ const regex2 = new RegExp(
 );
 const dateTransformer2 = function (regexExecGroups) {
   let beginMonthAsLetters = regexExecGroups[1];
-  let endMonthAsLetters = regexExecGroups[6];
+  let endMonthAsLetters = regexExecGroups[7];
   let beginMonth = getYearNumberFromMonthAsLetters(beginMonthAsLetters);
   let endMonth = getYearNumberFromMonthAsLetters(endMonthAsLetters);
   let beginDay = regexExecGroups[3];
-  let endDay = regexExecGroups[8];
-  let beginYear = regexExecGroups[10];
-  let endYear = regexExecGroups[10];
+  let endDay = regexExecGroups[9];
+  let beginYear = regexExecGroups[11].substring(0, 2);
+  let endYear = regexExecGroups[11].substring(0, 2);
   return {
     beginMonth: beginMonth,
     endMonth: endMonth,
@@ -79,8 +82,8 @@ const dateTransformer3 = function (regexExecGroups) {
   let endMonth = getYearNumberFromMonthAsLetters(endMonthAsLetters);
   let beginDay = regexExecGroups[3];
   let endDay = regexExecGroups[10];
-  let beginYear = regexExecGroups[5];
-  let endYear = regexExecGroups[12];
+  let beginYear = regexExecGroups[5].substring(0, 2);
+  let endYear = regexExecGroups[12].substring(0, 2);
   return {
     beginMonth: beginMonth,
     endMonth: endMonth,
@@ -102,8 +105,8 @@ const dateTransformer4 = function (regexExecGroups) {
   let endMonth = getYearNumberFromMonthAsLetters(endMonthAsLetters);
   let beginDay = regexExecGroups[3];
   let endDay = regexExecGroups[6];
-  let beginYear = regexExecGroups[8];
-  let endYear = regexExecGroups[8];
+  let beginYear = regexExecGroups[8].substring(0, 2);
+  let endYear = regexExecGroups[8].substring(0, 2);
   return {
     beginMonth: beginMonth,
     endMonth: endMonth,
@@ -115,7 +118,10 @@ const dateTransformer4 = function (regexExecGroups) {
 };
 // Valid February 2 to 27, 2022
 // Valid August 3 - 28, 2022
-const regex5 = new RegExp("Valid 6/22/, {2}- no matching month/ /, ", "i");
+const regex5 = new RegExp(
+  "Ends 12/24/22 In-Warehouse, Ends 12/25/22 Online",
+  "i"
+);
 const dateTransformer5 = function (regexExecGroups) {
   let beginMonthAsLetters = regexExecGroups[1];
   let endMonthAsLetters = regexExecGroups[1];
@@ -126,9 +132,9 @@ const dateTransformer5 = function (regexExecGroups) {
   let beginYear = regexExecGroups[8];
   let endYear = regexExecGroups[8];
   return {
-    beginMonth: "6",
-    endMonth: "7",
-    beginDay: "22",
+    beginMonth: "11",
+    endMonth: "12",
+    beginDay: "21",
     endDay: "24",
     beginYear: "22",
     endYear: "22",
@@ -137,7 +143,7 @@ const dateTransformer5 = function (regexExecGroups) {
 console.log("Scanning Coupons table.");
 //docClient.scan(params, regexDateValidUpdateOnScan(regex1, dateTransformer1)); //this function call scans for all coupons and updates the dateValid with a standard formatter
 //docClient.scan(params, regexDateValidUpdateOnScan(regex2, dateTransformer2)); //this function call scans for all coupons and updates the dateValid with a standard formatter
-docClient.scan(params, regexDateValidUpdateOnScan(regex1, dateTransformer1)); //this function call scans for all coupons and updates the dateValid with a standard formatter
+docClient.scan(params, regexDateValidUpdateOnScan(regex5, dateTransformer5)); //this function call scans for all coupons and updates the dateValid with a standard formatter
 
 function regexDateValidUpdateOnScan(regex, dateTransformer) {
   //Constructor to take in any regex and it's helper date transformation function and output a callback to DynamoDB.scan(err, callback)
@@ -154,8 +160,9 @@ function regexDateValidUpdateOnScan(regex, dateTransformer) {
       //javascript regex constructor string needs special character groups escaped with \ (e.g. \\s for whitespace)
 
       //filter items which match regex, then update each item in DynamoDB
-      data.Items.filter((coupon) => regex.test(coupon.dateValid)).forEach(
-        function (coupon) {
+      data.Items.filter((coupon) => coupon.createdAt > "2021-12-11")
+        .filter((coupon) => regex.test(coupon.dateValid))
+        .forEach(function (coupon) {
           console.log(
             "updating: " + coupon.id + ";",
             coupon.dateValid,
@@ -215,8 +222,7 @@ function regexDateValidUpdateOnScan(regex, dateTransformer) {
             else
               console.log(`successfully updated to: ${JSON.stringify(data)}`);
           });
-        }
-      );
+        });
 
       //updateCoupon continue scanning if we have more movies, because
       // scan can retrieve a maximum of 1MB of data
