@@ -6,9 +6,11 @@ import React, { useState, useEffect, useMemo } from "react";
 import Item from "./components/Item";
 import styled from "styled-components";
 import Canvas from "./components/Canvas.js";
-import { Authenticator } from "@aws-amplify/ui-react";
+import { Authenticator, Flex } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import useDebounce from "./components/useDebounce";
+import { addStartDate, sortDateAscending } from "./models/utils";
+
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
     // [::1] is the IPv6 localhost address.
@@ -53,6 +55,7 @@ const StyledDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   background: grey 50%;
+  padding: 0.5rem;
 `;
 const StyledLogo = styled.span`
   font-size: 2rem;
@@ -73,9 +76,11 @@ const StyledInput = styled.input`
   color: black;
 `;
 
-const StyledItemName = styled.span`
+const StyledItemName = styled.div`
   font-size: 1.5rem;
   color: black;
+  display: flex;
+  justify-content: center;
 `;
 function App() {
   console.log({ App: "rendering App" });
@@ -83,11 +88,11 @@ function App() {
   const [selectedCouponId, setSelectedCouponId] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearchValue = useDebounce(searchValue, 1500);
-  const [nextToken, setNextToken] = useState(null);
+  const [, setNextToken] = useState(null);
   const selectedCoupon = useMemo(() => {
     return selectedCouponId !== ""
       ? coupons.find((coupon) => selectedCouponId === coupon.id)
-      : { itemNumber: "no selected item", itemName: "no selected item" };
+      : { itemNumber: "No selected item", itemName: "No selected item" };
   }, [selectedCouponId, coupons]);
 
   const couponContextValue = {
@@ -110,6 +115,10 @@ function App() {
     fetchData();
   }, [debouncedSearchValue]);
 
+  const couponsDateDesc = coupons
+    .map(addStartDate)
+    .sort(sortDateAscending)
+    .reverse();
   function handleCouponSelect(id) {
     if (id === selectedCouponId) {
       return;
@@ -122,8 +131,15 @@ function App() {
     <Authenticator>
       {({ signOut, user }) => (
         <div className="App">
-          <header className="App-header">
-            <button onClick={signOut}>Sign out</button>
+          <header
+            className="App-header"
+            style={{
+              display: Flex,
+              justifyContent: "space-between",
+              flexDirection: "row",
+              padding: "0.5rem",
+            }}
+          >
             <StyledLogo>NemoNemoNemo</StyledLogo>
             <StyledInput
               placeholder="Search..."
@@ -134,13 +150,19 @@ function App() {
                 setSearchValue(e.target.value);
               }}
             ></StyledInput>
-            <StyledItemName>{selectedCoupon.itemName}</StyledItemName>
+            <button onClick={signOut}>Sign out</button>
           </header>
+          <StyledItemName>{`${selectedCoupon?.itemName} - ${selectedCoupon.itemNumber}`}</StyledItemName>
+
           <CouponContext.Provider value={couponContextValue}>
-            <Canvas></Canvas>
+            {selectedCoupon.itemNumber === "No selected item" ||
+            selectedCoupon.itemNumber === "Item Numbers vary" ? null : (
+              <Canvas></Canvas>
+            )}
           </CouponContext.Provider>
+
           <StyledDiv>
-            {coupons.map((coupon) => (
+            {couponsDateDesc.map((coupon) => (
               <Item
                 key={coupon.id}
                 dateValid={coupon.dateValid.match(

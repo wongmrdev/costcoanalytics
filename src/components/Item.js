@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const StyledSpan = styled.span`
   position: relative;
@@ -18,13 +18,13 @@ const StyledSpan = styled.span`
   margin: 5px;
 `;
 const StyledDateValid = styled.span`
-font-size: calc(6px + .75vmin)
+  font-size: calc(6px + 0.75vmin);
 `;
 const StyledItemName = styled.span`
-font-size: calc(8px+ .75vmin)
+  font-size: calc(8px+ 0.75vmin);
 `;
 const StyledItemNumber = styled.span`
-font-size: calc(6px + .5vmin)
+  font-size: calc(6px + 0.5vmin);
 `;
 const StyledItemYourCost = styled.span`
   font-style: italic;
@@ -44,11 +44,15 @@ function Item(item) {
       <br></br>
       <StyledItemNumber>{item.itemNumber}</StyledItemNumber>
       <br></br>
-      <StyledItemDiscount>Coupon -${item.itemDiscountDollar}.{item.itemDiscountCents}</StyledItemDiscount>
+      <StyledItemDiscount>
+        Coupon -${item.itemDiscountDollar}.{item.itemDiscountCents}
+      </StyledItemDiscount>
       <br></br>
-      <StyledItemYourCost>Your cost: {item.itemYourCost}</StyledItemYourCost>
+      {item.itemYourCost ? (
+        <StyledItemYourCost>Your cost: {item.itemYourCost}</StyledItemYourCost>
+      ) : null}
     </StyledSpan>
-  )
+  );
 }
 
 export default Item;

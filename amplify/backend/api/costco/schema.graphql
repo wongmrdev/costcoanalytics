@@ -1,6 +1,5 @@
 type coupon
   @model
-  @auth(rules: [{ allow: owner, operations: [create, delete, update] }])
   @key(
     name: "couponsByItemNumber"
     fields: ["itemNumber"]

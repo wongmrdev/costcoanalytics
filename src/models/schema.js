@@ -94,6 +94,26 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "couponsByItemNumber",
+                        "fields": [
+                            "itemNumber"
+                        ],
+                        "queryField": "couponsByItemNumber"
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "couponsByItemName",
+                        "fields": [
+                            "itemName"
+                        ],
+                        "queryField": "couponsByItemName"
+                    }
                 }
             ]
         }
@@ -101,5 +121,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.3.2",
-    "version": "ba66b4779cc6aa54969f69758ef5b22a"
+    "version": "c979b217f305e6075eeaba4bcf683b89"
 };

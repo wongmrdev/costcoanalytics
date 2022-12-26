@@ -1,11 +1,39 @@
 import React, { useContext, useState, useEffect } from "react";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  TimeScale,
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+} from "chart.js";
 import { Line } from "react-chartjs-2";
+import "chartjs-adapter-date-fns";
 import * as queries from "../graphql/queries";
 import { CouponContext } from "../App";
 import { API } from "aws-amplify";
+import { addStartDate, sortDateAscending } from "../models/utils";
+
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  TimeScale,
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale
+);
+
 export default function Canvas() {
   const [selectedCouponData, setSelectedCouponData] = useState([]);
   const { selectedCoupon } = useContext(CouponContext);
+
   useEffect(() => {
     console.log("running canvas useEffect");
     async function fetchData() {
@@ -23,9 +51,13 @@ export default function Canvas() {
     }
     fetchData();
   }, [selectedCoupon]);
-  console.log({ selectedCouponData });
+
+  const augmentedData = selectedCouponData
+    .map(addStartDate)
+    .sort(sortDateAscending);
+
   const chartData = {
-    labels: selectedCouponData.map((coupon) => coupon.dateValid),
+    labels: augmentedData.map((coupon) => coupon.startDate),
 
     datasets: [
       {
@@ -35,7 +67,7 @@ export default function Canvas() {
         backgroundColor: "rgba(75,192,192,1)",
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 2,
-        data: selectedCouponData.map((coupon) =>
+        data: augmentedData.map((coupon) =>
           coupon.itemYourCost
             ? parseFloat(coupon.itemYourCost.replace(/\$|,/g, ""))
             : 0
@@ -48,7 +80,7 @@ export default function Canvas() {
         backgroundColor: "rgb(255, 69, 0)",
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 2,
-        data: selectedCouponData.map((coupon) =>
+        data: augmentedData.map((coupon) =>
           coupon.itemDiscountDollar
             ? parseFloat(coupon.itemDiscountDollar.replace(/\$|,/g, ""))
             : null
@@ -65,12 +97,21 @@ export default function Canvas() {
       },
     },
     scales: {
-      x: { stacked: true },
+      x: {
+        type: "time",
+        time: {
+          // Luxon format string
+          unit: "month",
+        },
+        stacked: true,
+      },
       y: {
+        title: { display: true, text: "Dollar Amount" },
         stacked: false,
         ticks: {
           beginAtZero: true,
         },
+        suggestedMin: 0,
       },
     },
   };
@@ -78,10 +119,24 @@ export default function Canvas() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [selectedCoupon]);
+  if (!selectedCouponData)
+    return (
+      <div
+        style={{
+          color: "red",
+          display: "flex",
+          justifyContent: "center",
+          margin: "1rem",
+        }}
+      >
+        No Item Number for Lookup
+      </div>
+    );
 
+  console.log(selectedCouponData);
   return (
     <div>
-      <Line data={chartData} height={400} options={options} />
+      <Line data={chartData} height={300} options={options} />
     </div>
   );
 }
