@@ -64,8 +64,9 @@ export default function Canvas() {
     datasets: [
       {
         label: "Your Cost",
+        hidden: true,
         fill: false,
-        lineTension: 0.5,
+        lineTension: 0.1,
         backgroundColor: "rgba(75,192,192,1)",
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 2,
@@ -86,7 +87,7 @@ export default function Canvas() {
       {
         label: "Discount",
         fill: false,
-        lineTension: 0.5,
+        lineTension: 0.1,
         backgroundColor: "rgb(255, 69, 0)",
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 2,
@@ -118,8 +119,10 @@ export default function Canvas() {
       x: {
         type: "time",
         time: {
+          parser: "YYYY-MM-DDTHH:mm:ss",
           // Luxon format string
           unit: "month",
+          timezone: "UTC",
         },
         stacked: true,
       },
@@ -128,7 +131,6 @@ export default function Canvas() {
         stacked: false,
         ticks: {
           beginAtZero: true,
-
           stepSize: 1,
         },
         suggestedMin: 0,
