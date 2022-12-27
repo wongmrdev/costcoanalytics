@@ -40,6 +40,8 @@ export default function Canvas() {
     console.log("running canvas useEffect");
     async function fetchData() {
       try {
+        if (!selectedCoupon?.itemNumber)
+          return alert("This item does not have an item number for lookup");
         var selectedCouponData = await API.graphql({
           query: queries.couponsByItemNumber,
           variables: { itemNumber: selectedCoupon.itemNumber },

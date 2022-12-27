@@ -10,6 +10,7 @@ import { Authenticator, Flex } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import useDebounce from "./components/useDebounce";
 import { addStartDate, sortDateAscending } from "./models/utils";
+import { set } from "date-fns";
 
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
@@ -158,6 +159,7 @@ function App() {
               onChange={(e) => {
                 console.log("fire onchange");
                 setSearchValue(e.target.value);
+                setSelectedCouponId("");
               }}
             ></StyledInput>
             <StyledButton onClick={signOut}>Sign out</StyledButton>
