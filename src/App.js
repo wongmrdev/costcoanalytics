@@ -126,6 +126,7 @@ function App() {
     .map(addStartDate)
     .sort(sortDateAscending)
     .reverse();
+
   function handleCouponSelect(id) {
     if (id === selectedCouponId) {
       return;
@@ -163,12 +164,12 @@ function App() {
           </header>
 
           <CouponContext.Provider value={couponContextValue}>
-            {selectedCoupon.itemNumber === "No selected item" ||
-            selectedCoupon.itemNumber === "Item Numbers vary" ? null : (
+            {selectedCoupon?.itemNumber === "No selected item" ||
+            selectedCoupon?.itemNumber === "Item Numbers vary" ? null : (
               <Canvas></Canvas>
             )}
           </CouponContext.Provider>
-          <StyledItemName>{`${selectedCoupon?.itemName} - ${selectedCoupon.itemNumber}`}</StyledItemName>
+          <StyledItemName>{`${selectedCoupon?.itemName} - ${selectedCoupon?.itemNumber}`}</StyledItemName>
           <StyledDiv>
             {couponsDateDesc.map((coupon) => (
               <Item
