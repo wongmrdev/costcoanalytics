@@ -11,6 +11,7 @@
     "aws-sdk": "^2.1282.0",
     "chart.js": "^4.1.1",
     "chartjs-adapter-date-fns": "^3.0.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "date-fns": "^2.29.3",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.1.0",

@@ -55,10 +55,11 @@ const StyledDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   background: grey 50%;
-  padding: 0.5rem;
+  padding: 0.25rem 0.5rem;
 `;
+
 const StyledLogo = styled.span`
-  font-size: 2rem;
+  font-size: 1.5rem;
   background: -webkit-linear-gradient(
       217deg,
       rgba(255, 0, 0, 0.8),
@@ -72,15 +73,21 @@ const StyledLogo = styled.span`
   -webkit-text-fill-color: transparent;
 `;
 const StyledInput = styled.input`
-  font-size: 1.5rem;
+  font-size: 1rem;
+  color: black;
+`;
+const StyledButton = styled.button`
+  font-size: 1rem;
   color: black;
 `;
 
 const StyledItemName = styled.div`
-  font-size: 1.5rem;
+  font-size: 0.75rem;
   color: black;
   display: flex;
   justify-content: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 `;
 function App() {
   console.log({ App: "rendering App" });
@@ -137,7 +144,9 @@ function App() {
               display: Flex,
               justifyContent: "space-between",
               flexDirection: "row",
-              padding: "0.5rem",
+              flexWrap: "wrap",
+              padding: "0.25rem 0.5rem",
+              minHeight: "5vh",
             }}
           >
             <StyledLogo>NemoNemoNemo</StyledLogo>
@@ -150,9 +159,8 @@ function App() {
                 setSearchValue(e.target.value);
               }}
             ></StyledInput>
-            <button onClick={signOut}>Sign out</button>
+            <StyledButton onClick={signOut}>Sign out</StyledButton>
           </header>
-          <StyledItemName>{`${selectedCoupon?.itemName} - ${selectedCoupon.itemNumber}`}</StyledItemName>
 
           <CouponContext.Provider value={couponContextValue}>
             {selectedCoupon.itemNumber === "No selected item" ||
@@ -160,7 +168,7 @@ function App() {
               <Canvas></Canvas>
             )}
           </CouponContext.Provider>
-
+          <StyledItemName>{`${selectedCoupon?.itemName} - ${selectedCoupon.itemNumber}`}</StyledItemName>
           <StyledDiv>
             {couponsDateDesc.map((coupon) => (
               <Item

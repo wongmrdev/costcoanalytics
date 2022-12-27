@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import "chartjs-adapter-date-fns";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import * as queries from "../graphql/queries";
 import { CouponContext } from "../App";
 import { API } from "aws-amplify";
@@ -27,7 +28,8 @@ ChartJS.register(
   LineElement,
   PointElement,
   CategoryScale,
-  LinearScale
+  LinearScale,
+  ChartDataLabels
 );
 
 export default function Canvas() {
@@ -72,6 +74,14 @@ export default function Canvas() {
             ? parseFloat(coupon.itemYourCost.replace(/\$|,/g, ""))
             : 0
         ),
+        datalabels: {
+          color: "#000000",
+          align: "bottom",
+          offset: "5",
+          display: "auto",
+
+          backgroundColor: "rgba(255,255,255,0.5)",
+        },
       },
       {
         label: "Discount",
@@ -85,6 +95,14 @@ export default function Canvas() {
             ? parseFloat(coupon.itemDiscountDollar.replace(/\$|,/g, ""))
             : null
         ),
+        datalabels: {
+          color: "#000000",
+          align: "bottom",
+          offset: "5",
+          display: "auto",
+
+          backgroundColor: "rgba(255,255,255,0.5)",
+        },
       },
     ],
   };
@@ -110,6 +128,8 @@ export default function Canvas() {
         stacked: false,
         ticks: {
           beginAtZero: true,
+
+          stepSize: 1,
         },
         suggestedMin: 0,
       },
