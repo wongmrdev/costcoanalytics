@@ -10,7 +10,6 @@ import { Authenticator, Flex, Icon } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import useDebounce from "./components/useDebounce";
 import { addStartDate, sortDateAscending } from "./models/utils";
-import { set } from "date-fns";
 import { MdClear } from "react-icons/md";
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
@@ -158,7 +157,7 @@ function App() {
               minHeight: "5vh",
             }}
           >
-            <StyledLogo>NemoNemoNemo</StyledLogo>
+            <StyledLogo>NemoNemoNemo v0.1</StyledLogo>
             <div>
               <StyledInput
                 placeholder="Search..."
@@ -205,7 +204,9 @@ function App() {
                 ></Item>
               ))}
             </StyledDiv>
-          ) : null}
+          ) : (
+            <div>loading...</div>
+          )}
         </div>
       )}
     </Authenticator>

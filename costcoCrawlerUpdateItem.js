@@ -118,10 +118,7 @@ const dateTransformer4 = function (regexExecGroups) {
 };
 // Valid February 2 to 27, 2022
 // Valid August 3 - 28, 2022
-const regex5 = new RegExp(
-  "Ends 12/24/22 In-Warehouse, Ends 12/25/22 Online",
-  "i"
-);
+const regex5 = new RegExp("Valid December 28 - January 22, 2023", "i");
 const dateTransformer5 = function (regexExecGroups) {
   let beginMonthAsLetters = regexExecGroups[1];
   let endMonthAsLetters = regexExecGroups[1];
@@ -132,14 +129,17 @@ const dateTransformer5 = function (regexExecGroups) {
   let beginYear = regexExecGroups[8];
   let endYear = regexExecGroups[8];
   return {
-    beginMonth: "11",
-    endMonth: "12",
-    beginDay: "21",
-    endDay: "24",
+    beginMonth: "12",
+    endMonth: "1",
+    beginDay: "28",
+    endDay: "22",
     beginYear: "22",
-    endYear: "22",
+    endYear: "23",
   };
 };
+
+// Valid December 28 - January 22, 2023
+
 console.log("Scanning Coupons table.");
 //docClient.scan(params, regexDateValidUpdateOnScan(regex1, dateTransformer1)); //this function call scans for all coupons and updates the dateValid with a standard formatter
 //docClient.scan(params, regexDateValidUpdateOnScan(regex2, dateTransformer2)); //this function call scans for all coupons and updates the dateValid with a standard formatter
