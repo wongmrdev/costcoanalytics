@@ -1,4 +1,5 @@
 export function addStartDate(coupon) {
+  if (!coupon.dateValid) return coupon;
   const startDate = convertDate(coupon.dateValid);
   coupon.startDate = startDate;
   return coupon;

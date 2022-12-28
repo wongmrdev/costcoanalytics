@@ -58,10 +58,10 @@ export default function Canvas() {
   }, [selectedCoupon]);
 
   const augmentedData =
-    selectedCouponData.map(addStartDate).sort(sortDateAscending) || new Date();
+    selectedCouponData?.map(addStartDate).sort(sortDateAscending) || new Date();
 
   const chartData = {
-    labels: augmentedData.map((coupon) => coupon.startDate),
+    labels: augmentedData.map((coupon) => coupon?.startDate),
 
     datasets: [
       {
@@ -173,8 +173,15 @@ export default function Canvas() {
 
   console.log(selectedCouponData);
   return (
-    <div>
-      <Line data={chartData} height={300} options={options} />
-    </div>
+    <>
+      <div>
+        <Line data={chartData} height={300} options={options} />
+      </div>
+      {chartData ? (
+        <div style={{ padding: "0.5rem", wordWrap: "wrap", whiteSpace: "pre" }}>
+          {JSON.stringify(chartData, undefined, "\t")}
+        </div>
+      ) : null}
+    </>
   );
 }
