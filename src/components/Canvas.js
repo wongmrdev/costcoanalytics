@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import "chartjs-adapter-date-fns";
+import { enUS } from "date-fns/locale";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import * as queries from "../graphql/queries";
 import { CouponContext } from "../App";
@@ -134,6 +135,11 @@ export default function Canvas() {
         },
         suggestedMin: new Date("2021-01-01"),
         suggestedMax: today.setMonth(today.getMonth() + 1),
+        adapters: {
+          date: {
+            locale: enUS,
+          },
+        },
       },
       y: {
         title: { display: true, text: "Dollar Amount" },
