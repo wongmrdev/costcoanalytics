@@ -6,12 +6,12 @@ import React, { useState, useEffect, useMemo } from "react";
 import Item from "./components/Item";
 import styled from "styled-components";
 import Canvas from "./components/Canvas.js";
-import { Authenticator, Flex } from "@aws-amplify/ui-react";
+import { Authenticator, Flex, Icon } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import useDebounce from "./components/useDebounce";
 import { addStartDate, sortDateAscending } from "./models/utils";
 import { set } from "date-fns";
-
+import { MdClear } from "react-icons/md";
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
     // [::1] is the IPv6 localhost address.
@@ -92,6 +92,7 @@ const StyledItemName = styled.div`
 `;
 function App() {
   console.log({ App: "rendering App" });
+  const [loading, setLoading] = useState(false);
   const [coupons, setCoupons] = useState([]); //array of objects expected
   const [selectedCouponId, setSelectedCouponId] = useState("");
   const [searchValue, setSearchValue] = useState("");
@@ -109,6 +110,7 @@ function App() {
 
   useEffect(() => {
     console.log({ App: "useEffect to load search" });
+    setLoading(true);
     async function fetchData() {
       var couponsGot = await API.graphql({
         query: queries.listCoupons,
@@ -119,8 +121,13 @@ function App() {
       });
       setCoupons(couponsGot.data.listCoupons.items);
       setNextToken(couponsGot.data.nextToken);
+      setLoading(false);
     }
     fetchData();
+    return () => {
+      console.log({ App: "useEffect to load search cleanup" });
+      setLoading(false);
+    };
   }, [debouncedSearchValue]);
 
   const couponsDateDesc = coupons
@@ -152,16 +159,25 @@ function App() {
             }}
           >
             <StyledLogo>NemoNemoNemo</StyledLogo>
-            <StyledInput
-              placeholder="Search..."
-              type="text"
-              value={searchValue}
-              onChange={(e) => {
-                console.log("fire onchange");
-                setSearchValue(e.target.value);
-                setSelectedCouponId("");
-              }}
-            ></StyledInput>
+            <div>
+              <StyledInput
+                placeholder="Search..."
+                type="text"
+                value={searchValue}
+                onChange={(e) => {
+                  console.log("fire onchange");
+                  setSearchValue(e.target.value);
+                  setSelectedCouponId("");
+                }}
+              ></StyledInput>{" "}
+              {searchValue ? (
+                <Icon
+                  ariaLabel="ClearSearch"
+                  as={MdClear}
+                  onClick={() => setSearchValue("")}
+                />
+              ) : null}
+            </div>
             <StyledButton onClick={signOut}>Sign out</StyledButton>
           </header>
 
@@ -172,22 +188,24 @@ function App() {
             )}
           </CouponContext.Provider>
           <StyledItemName>{`${selectedCoupon?.itemName} - ${selectedCoupon?.itemNumber}`}</StyledItemName>
-          <StyledDiv>
-            {couponsDateDesc.map((coupon) => (
-              <Item
-                key={coupon.id}
-                dateValid={coupon.dateValid.match(
-                  /\d{1,2}[/ .-]\d{1,2}[/ .-]\d{2}/
-                )}
-                itemName={coupon.itemName}
-                itemNumber={coupon.itemNumber}
-                itemYourCost={coupon.itemYourCost}
-                itemDiscountDollar={coupon.itemDiscountDollar}
-                itemDiscountCents={coupon.itemDiscountCents}
-                onClick={() => handleCouponSelect(coupon.id)}
-              ></Item>
-            ))}
-          </StyledDiv>
+          {!loading ? (
+            <StyledDiv>
+              {couponsDateDesc.map((coupon) => (
+                <Item
+                  key={coupon.id}
+                  dateValid={coupon.dateValid.match(
+                    /\d{1,2}[/ .-]\d{1,2}[/ .-]\d{2}/
+                  )}
+                  itemName={coupon.itemName}
+                  itemNumber={coupon.itemNumber}
+                  itemYourCost={coupon.itemYourCost}
+                  itemDiscountDollar={coupon.itemDiscountDollar}
+                  itemDiscountCents={coupon.itemDiscountCents}
+                  onClick={() => handleCouponSelect(coupon.id)}
+                ></Item>
+              ))}
+            </StyledDiv>
+          ) : null}
         </div>
       )}
     </Authenticator>

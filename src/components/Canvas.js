@@ -56,9 +56,8 @@ export default function Canvas() {
     fetchData();
   }, [selectedCoupon]);
 
-  const augmentedData = selectedCouponData
-    .map(addStartDate)
-    .sort(sortDateAscending);
+  const augmentedData =
+    selectedCouponData.map(addStartDate).sort(sortDateAscending) || new Date();
 
   const chartData = {
     labels: augmentedData.map((coupon) => coupon.startDate),
@@ -68,7 +67,7 @@ export default function Canvas() {
         label: "Your Cost",
         hidden: true,
         fill: false,
-        lineTension: 0.1,
+        lineTension: 0,
         backgroundColor: "rgba(75,192,192,1)",
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 2,
@@ -89,7 +88,7 @@ export default function Canvas() {
       {
         label: "Discount",
         fill: false,
-        lineTension: 0.1,
+        lineTension: 0,
         backgroundColor: "rgb(255, 69, 0)",
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 2,
@@ -110,7 +109,12 @@ export default function Canvas() {
     ],
   };
   console.log({ chartData });
+  const today = new Date();
   const options = {
+    layout: {
+      padding: { right: 5 },
+    },
+    responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
@@ -121,18 +125,22 @@ export default function Canvas() {
       x: {
         type: "time",
         time: {
-          parser: "YYYY-MM-DDTHH:mm:ss",
-          // Luxon format string
           unit: "month",
           timezone: "UTC",
         },
-        stacked: true,
+        stacked: false,
+        ticks: {
+          display: true,
+        },
+        suggestedMin: new Date("2021-01-01"),
+        suggestedMax: today.setMonth(today.getMonth() + 1),
       },
       y: {
         title: { display: true, text: "Dollar Amount" },
         stacked: false,
+        grace: "2%",
+        beginAtZero: true,
         ticks: {
-          beginAtZero: true,
           stepSize: 1,
         },
         suggestedMin: 0,
