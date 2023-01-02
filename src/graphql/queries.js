@@ -170,3 +170,42 @@ export const couponsByItemName = /* GraphQL */ `
     }
   }
 `;
+export const searchCoupons = /* GraphQL */ `
+  query SearchCoupons(
+    $filter: SearchablecouponFilterInput
+    $sort: SearchablecouponSortInput
+    $limit: Int
+    $nextToken: String
+    $from: Int
+  ) {
+    searchCoupons(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+    ) {
+      items {
+        id
+        dateValid
+        itemNumber
+        itemName
+        itemDescription
+        itemOther
+        itemVaries
+        itemShipping
+        itemYourCost
+        itemDiscountDollar
+        itemDiscountCents
+        itemDiscountLimit
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
+    }
+  }
+`;

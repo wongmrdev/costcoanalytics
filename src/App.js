@@ -115,10 +115,31 @@ function App() {
         query: queries.listCoupons,
         variables: {
           limit: 4000,
-          filter: { itemName: { contains: debouncedSearchValue } },
         },
       });
       setCoupons(couponsGot.data.listCoupons.items);
+      setNextToken(couponsGot.data.nextToken);
+      setLoading(false);
+    }
+    fetchData();
+    return () => {
+      console.log({ App: "useEffect to load listCoupons cleanup" });
+      setLoading(false);
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log({ App: "useEffect to load search" });
+    setLoading(true);
+    async function fetchData() {
+      var couponsGot = await API.graphql({
+        query: queries.searchCoupons,
+        variables: {
+          limit: 1000,
+          filter: { itemName: { match: debouncedSearchValue } },
+        },
+      });
+      setCoupons(couponsGot.data.searchCoupons.items);
       setNextToken(couponsGot.data.nextToken);
       setLoading(false);
     }

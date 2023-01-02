@@ -4,7 +4,7 @@ export function addStartDate(coupon) {
   coupon.startDate = startDate;
   return coupon;
 }
-// A function to convert a string date in the format of "Valid MM/DD/YY to MM/DD/YY" to a date object
+// A function to convert a string date in the format of "Valid MM/DD/YY - MM/DD/YY" to a date object
 export function convertDate(dateString) {
   const dateArray = dateString.split(" ");
   const month = dateArray[1].split("/")[0];

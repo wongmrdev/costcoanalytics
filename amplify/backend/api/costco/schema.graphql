@@ -1,5 +1,6 @@
 type coupon
   @model
+  @searchable
   @key(
     name: "couponsByItemNumber"
     fields: ["itemNumber"]
