@@ -110,7 +110,6 @@ export default function Canvas() {
       },
     ],
   };
-  console.log({ chartData });
   const today = new Date();
   const options = {
     layout: {
@@ -172,7 +171,6 @@ export default function Canvas() {
       </div>
     );
 
-  console.log(selectedCouponData);
   return (
     <>
       <div>

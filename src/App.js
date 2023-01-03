@@ -24,7 +24,6 @@ const isLocalhost = Boolean(
 // Assuming you have two redirect URIs, and the first is for localhost and second is for production
 const [localRedirectSignIn, productionRedirectSignIn] =
   awsConfig.oauth.redirectSignIn.split(",");
-
 const [localRedirectSignOut, productionRedirectSignOut] =
   awsConfig.oauth.redirectSignOut.split(",");
 
