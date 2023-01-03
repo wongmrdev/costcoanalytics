@@ -18,6 +18,7 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 import * as queries from "../graphql/queries";
 import { CouponContext } from "../App";
 import { API } from "aws-amplify";
+import ChartData from "./ChartData";
 import { addStartDate, sortDateAscending } from "../models/utils";
 
 ChartJS.register(
@@ -57,10 +58,11 @@ export default function Canvas() {
     );
   }, [selectedCoupon]);
 
-  const augmentedData = selectedCouponData;
+  const augmentedData =
+    selectedCouponData?.map(addStartDate).sort(sortDateAscending) || new Date();
 
   const chartData = {
-    labels: augmentedData.map((coupon) => coupon.createdAt),
+    labels: augmentedData.map((coupon) => coupon?.startDate),
 
     datasets: [
       {
@@ -176,15 +178,10 @@ export default function Canvas() {
       <div>
         <Line data={chartData} height={300} options={options} />
       </div>
-      {chartData ? (
-        <div style={{ padding: "0.5rem", wordWrap: "wrap", whiteSpace: "pre" }}>
-          {JSON.stringify(chartData, undefined, "\t")}
-          <p>selectedCouponData</p>
-          {JSON.stringify(selectedCouponData, undefined, "\t")}
-          <p>augmentedData</p>
-          {JSON.stringify(augmentedData, undefined, "\t")}
-        </div>
-      ) : null}
+      <ChartData
+        data={chartData}
+        selectedCouponData={selectedCouponData}
+      ></ChartData>
     </>
   );
 }

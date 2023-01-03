@@ -201,13 +201,13 @@ function App() {
             <StyledButton onClick={signOut}>Sign out</StyledButton>
           </header>
 
+          <StyledItemName>{`${selectedCoupon?.itemName} - ${selectedCoupon?.itemNumber}`}</StyledItemName>
           <CouponContext.Provider value={couponContextValue}>
             {selectedCoupon?.itemNumber === "No selected item" ||
             selectedCoupon?.itemNumber === "Item Numbers vary" ? null : (
               <Canvas></Canvas>
             )}
           </CouponContext.Provider>
-          <StyledItemName>{`${selectedCoupon?.itemName} - ${selectedCoupon?.itemNumber}`}</StyledItemName>
           {!loading ? (
             <StyledDiv>
               {couponsDateDesc.map((coupon) => (
