@@ -57,11 +57,10 @@ export default function Canvas() {
     );
   }, [selectedCoupon]);
 
-  const augmentedData =
-    selectedCouponData?.map(addStartDate).sort(sortDateAscending) || new Date();
+  const augmentedData = selectedCouponData;
 
   const chartData = {
-    labels: augmentedData.map((coupon) => coupon?.startDate),
+    labels: augmentedData.map((coupon) => coupon.createdAt),
 
     datasets: [
       {
