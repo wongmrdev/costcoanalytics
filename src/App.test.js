@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
-import Canvas from './components/Canvas';
-test('renders canvas', () => {
+import { render, screen } from "@testing-library/react";
+import App from "./App";
+
+test("renders learn react link", () => {
   render(<App />);
-  const linkElement = screen.getByText(/Costco Analytics/i);
+  const linkElement = screen.getByText(/NemoNemoNemo/i);
   expect(linkElement).toBeInTheDocument();
 });

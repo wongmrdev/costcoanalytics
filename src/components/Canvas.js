@@ -43,18 +43,18 @@ export default function Canvas() {
       try {
         if (!selectedCoupon?.itemNumber)
           return alert("This item does not have an item number for lookup");
-        var selectedCouponData = await API.graphql({
+        return await API.graphql({
           query: queries.couponsByItemNumber,
           variables: { itemNumber: selectedCoupon.itemNumber },
         });
-        setSelectedCouponData(
-          selectedCouponData.data.couponsByItemNumber.items
-        );
       } catch (err) {
         console.error(err);
+        return alert("Error fetching data");
       }
     }
-    fetchData();
+    fetchData().then((data) =>
+      setSelectedCouponData(data.data.couponsByItemNumber.items)
+    );
   }, [selectedCoupon]);
 
   const augmentedData =
@@ -180,6 +180,10 @@ export default function Canvas() {
       {chartData ? (
         <div style={{ padding: "0.5rem", wordWrap: "wrap", whiteSpace: "pre" }}>
           {JSON.stringify(chartData, undefined, "\t")}
+          <p>selectedCouponData</p>
+          {JSON.stringify(selectedCouponData, undefined, "\t")}
+          <p>augmentedData</p>
+          {JSON.stringify(augmentedData, undefined, "\t")}
         </div>
       ) : null}
     </>
