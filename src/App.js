@@ -135,7 +135,7 @@ function App() {
         query: queries.searchCoupons,
         variables: {
           limit: 1000,
-          filter: { itemName: { match: debouncedSearchValue } },
+          filter: { itemName: { contains: debouncedSearchValue } },
         },
       });
       setCoupons(couponsGot.data.searchCoupons.items);
@@ -184,7 +184,6 @@ function App() {
                 type="text"
                 value={searchValue}
                 onChange={(e) => {
-                  console.log("fire onchange");
                   setSearchValue(e.target.value);
                   setSelectedCouponId("");
                 }}

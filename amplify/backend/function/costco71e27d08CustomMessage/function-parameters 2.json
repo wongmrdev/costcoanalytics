@@ -1,0 +1,21 @@
+{
+  "trigger": true,
+  "modules": [
+    "verification-link"
+  ],
+  "parentResource": "costco71e27d08",
+  "functionName": "costco71e27d08CustomMessage",
+  "resourceName": "costco71e27d08CustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": "[\n  {\n    \"key\": \"RESOURCENAME\",\n    \"value\": \"resourceName\"\n  }\n]",
+  "triggerDir": "/snapshot/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "triggerEventPath": "CustomMessage.event.json",
+  "roleName": "costco71e27d08CustomMessage",
+  "skipEdit": true,
+  "REDIRECTURL": "/",
+  "EMAILSUBJECT": "Verify Your Account - nemonemonemo",
+  "EMAILMESSAGE": "Please use the link to verify your account",
+  "RESOURCENAME": "resourceName",
+  "enableCors": false
+}

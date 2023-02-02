@@ -1,0 +1,97 @@
+{
+  "version": "1",
+  "cognitoConfig": {
+    "resourceNameTruncated": "costco71e27d08",
+    "userPoolName": "costco71e27d08_userpool_71e27d08",
+    "autoVerifiedAttributes": [
+      "email"
+    ],
+    "mfaConfiguration": "OPTIONAL",
+    "mfaTypes": [
+      "SMS Text Message",
+      "TOTP"
+    ],
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [
+      "email"
+    ],
+    "aliasAttributes": [],
+    "userpoolClientGenerateSecret": false,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+      "email"
+    ],
+    "userpoolClientReadAttributes": [
+      "email"
+    ],
+    "userpoolClientLambdaRole": "costco71e27d08_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": false,
+    "authSelections": "userPoolOnly",
+    "resourceName": "costco71e27d08",
+    "serviceName": "Cognito",
+    "useDefault": "manual",
+    "sharedId": "71e27d08",
+    "userPoolGroupList": [
+      "costco"
+    ],
+    "userPoolGroups": false,
+    "usernameAttributes": [
+      "email, phone_number"
+    ],
+    "usernameCaseSensitive": false,
+    "verificationBucketName": "costco71e27d08verificationbucket",
+    "adminQueries": false,
+    "hostedUI": true,
+    "triggers": {
+      "CustomMessage": [
+        "verification-link"
+      ]
+    },
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": false,
+    "useEnabledMfas": false,
+    "dependsOn": [
+      {
+        "category": "function",
+        "resourceName": "costco71e27d08CustomMessage",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      }
+    ],
+    "permissions": [],
+    "authTriggerConnections": [
+      "{\"triggerType\":\"CustomMessage\",\"lambdaFunctionName\":\"costco71e27d08CustomMessage\"}"
+    ],
+    "hostedUIDomainName": "costcobfad9e78-bfad9e78",
+    "authProvidersUserPool": [
+      "Google"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "authProviders": [],
+    "hostedUIProviderCreds": "[{\"ProviderName\":\"Google\"}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\",\"https://master.d2ma2xsnuu3nlm.amplifyapp.com/\"],\"LogoutURLs\":[\"http://localhost:3000/\",\"https://master.d2ma2xsnuu3nlm.amplifyapp.com/\"]}"
+  }
+} 
