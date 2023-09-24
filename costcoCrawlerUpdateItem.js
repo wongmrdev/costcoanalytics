@@ -118,7 +118,8 @@ const dateTransformer4 = function (regexExecGroups) {
 };
 // Valid February 2 to 27, 2022
 // Valid August 3 - 28, 2022
-const regex5 = new RegExp("Valid February 1 -  February 26, 2023", "i");
+// Valid March 8 -  April 2, 2023
+const regex5 = new RegExp(`Valid April 12\u00A0-\u00A0May 7, 2023`, "i");
 const dateTransformer5 = function (regexExecGroups) {
   let beginMonthAsLetters = regexExecGroups[1];
   let endMonthAsLetters = regexExecGroups[1];
@@ -129,10 +130,10 @@ const dateTransformer5 = function (regexExecGroups) {
   let beginYear = regexExecGroups[8];
   let endYear = regexExecGroups[8];
   return {
-    beginMonth: "2",
-    endMonth: "2",
-    beginDay: "1",
-    endDay: "26",
+    beginMonth: "4",
+    endMonth: "5",
+    beginDay: "12",
+    endDay: "7",
     beginYear: "23",
     endYear: "23",
   };
