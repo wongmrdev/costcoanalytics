@@ -17,7 +17,7 @@ import { enUS } from "date-fns/locale";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import * as queries from "../graphql/queries";
 import { CouponContext } from "../App";
-import { API } from "aws-amplify";
+import { generateClient } from "aws-amplify";
 import ChartData from "./ChartData";
 import { addStartDate, sortDateAscending } from "../models/utils";
 
@@ -44,7 +44,7 @@ export default function Canvas() {
       try {
         if (!selectedCoupon?.itemNumber)
           return alert("This item does not have an item number for lookup");
-        return await API.graphql({
+        return await generateClient.graphql({
           query: queries.couponsByItemNumber,
           variables: { itemNumber: selectedCoupon.itemNumber },
         });

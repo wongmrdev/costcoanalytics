@@ -1,6 +1,6 @@
 import "./App.css";
 import { Amplify } from "aws-amplify";
-import API from "@aws-amplify/api";
+import { generateClient } from 'aws-amplify/api';
 import '@aws-amplify/ui-react/styles.css';
 import awsConfig from "./aws-exports.js";
 import * as queries from "./graphql/queries.js";
@@ -19,7 +19,6 @@ const isLocalhost = Boolean(
     window.location.hostname === "[::1]" ||
     // 127.0.0.1/8 is considered localhost for IPv4.
     window.location.hostname.match(
-      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
     )
 );
 
@@ -109,7 +108,7 @@ function App() {
   useEffect(() => {
     setLoading(true);
     async function fetchData() {
-      var couponsGot = await API.graphql({
+      var couponsGot = await generateClient.graphql({
         query: queries.listCoupons,
         variables: {
           limit: 4000,
@@ -128,7 +127,7 @@ function App() {
   useEffect(() => {
     setLoading(true);
     async function fetchData() {
-      var couponsGot = await API.graphql({
+      var couponsGot = await generateClient.graphql({
         query: queries.listCoupons,
         variables: {
           limit: 1000,
