@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aws-amplify/ui-react": "^4.3.1",
+    "@aws-amplify/ui-react": "^6.1.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
-    "aws-amplify": "^5.0.7",
+    "aws-amplify": "^6.0.17",
     "aws-sdk": "^2.1282.0",
     "chart.js": "^4.4.1",
     "chartjs-adapter-date-fns": "^3.0.0",
