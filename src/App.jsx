@@ -1,5 +1,6 @@
 import "./App.css";
-import { Amplify, API } from "aws-amplify";
+import { Amplify } from "aws-amplify";
+import API from "@aws-amplify/api";
 import '@aws-amplify/ui-react/styles.css';
 import awsConfig from "./aws-exports.js";
 import * as queries from "./graphql/queries.js";
