@@ -72,30 +72,6 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_costco71e27d08CustomMessage_EMAILMESSAGE": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "costco71e27d08CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_costco71e27d08CustomMessage_EMAILSUBJECT": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "costco71e27d08CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_costco71e27d08CustomMessage_REDIRECTURL": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "costco71e27d08CustomMessage"
-        }
-      ]
-    },
     "AMPLIFY_function_costco71e27d08CustomMessage_deploymentBucketName": {
       "usedBy": [
         {

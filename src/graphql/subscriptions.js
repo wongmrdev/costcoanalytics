@@ -21,6 +21,8 @@ export const onCreateCoupon = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      owner
+      __typename
     }
   }
 `;
@@ -44,6 +46,8 @@ export const onUpdateCoupon = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      owner
+      __typename
     }
   }
 `;
@@ -67,6 +71,8 @@ export const onDeleteCoupon = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      owner
+      __typename
     }
   }
 `;

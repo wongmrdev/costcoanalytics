@@ -1,15 +1,15 @@
 import "./App.css";
 import { Amplify, API } from "aws-amplify";
-import awsConfig from "./aws-exports";
-import * as queries from "./graphql/queries";
+import awsConfig from "./aws-exports.js";
+import * as queries from "./graphql/queries.js";
 import React, { useState, useEffect, useMemo } from "react";
 import Item from "./components/Item";
 import styled from "styled-components";
-import Canvas from "./components/Canvas.js";
+import Canvas from "./components/Canvas";
 import { Authenticator, Flex, Icon } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import useDebounce from "./components/useDebounce";
-import { addStartDate, sortDateAscending } from "./models/utils";
+import useDebounce from "./components/useDebounce.js";
+import { addStartDate, sortDateAscending } from "./models/utils.js";
 import { MdClear } from "react-icons/md";
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
@@ -89,7 +89,6 @@ const StyledItemName = styled.div`
   padding-right: 0.5rem;
 `;
 function App() {
-  console.log({ App: "rendering App" });
   const [loading, setLoading] = useState(false);
   const [coupons, setCoupons] = useState([]); //array of objects expected
   const [selectedCouponId, setSelectedCouponId] = useState("");
@@ -107,7 +106,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log({ App: "useEffect to load search" });
     setLoading(true);
     async function fetchData() {
       var couponsGot = await API.graphql({
@@ -122,13 +120,11 @@ function App() {
     }
     fetchData();
     return () => {
-      console.log({ App: "useEffect to load listCoupons cleanup" });
       setLoading(false);
     };
   }, []);
 
   useEffect(() => {
-    console.log({ App: "useEffect to load search" });
     setLoading(true);
     async function fetchData() {
       var couponsGot = await API.graphql({
@@ -144,7 +140,6 @@ function App() {
     }
     fetchData();
     return () => {
-      console.log({ App: "useEffect to load search cleanup" });
       setLoading(false);
     };
   }, [debouncedSearchValue]);

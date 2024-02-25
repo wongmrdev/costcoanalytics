@@ -53,7 +53,7 @@ async function getCoupons() {
       )?.textContent;
       var couponsList = [];
       var couponsList = ecoCouponNodeList.map((ecoCouponNodeList) => ({
-        dateValid: "Valid 8/30/23 - 9/24/23",
+        dateValid: "Valid 1/31/24 - 02/25/24",
         itemNumber:
           ecoCouponNodeList.querySelector("div.eco-items")?.textContent ?? "",
         itemName:

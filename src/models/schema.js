@@ -96,10 +96,6 @@ export const schema = {
                     "properties": {}
                 },
                 {
-                    "type": "searchable",
-                    "properties": {}
-                },
-                {
                     "type": "key",
                     "properties": {
                         "name": "couponsByItemNumber",
@@ -118,12 +114,44 @@ export const schema = {
                         ],
                         "queryField": "couponsByItemName"
                     }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ],
+                                "identityClaim": "cognito:username"
+                            },
+                            {
+                                "groupClaim": "cognito:groups",
+                                "provider": "userPools",
+                                "allow": "groups",
+                                "groups": [
+                                    "Admin"
+                                ],
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
                 }
             ]
         }
     },
     "enums": {},
     "nonModels": {},
-    "codegenVersion": "3.3.2",
+    "codegenVersion": "3.4.4",
     "version": "c979b217f305e6075eeaba4bcf683b89"
 };

@@ -8,7 +8,7 @@ export function addStartDate(coupon) {
 export function convertDate(dateString) {
   if (!dateString) return alert("no Date string provided");
   const dateArray = dateString.split(" ");
-  const month = dateArray[1].split("/")[0];
+  const month = dateArray[1].split("/")[0]-1;
   const day = dateArray[1].split("/")[1];
   const year = dateArray[1].split("/")[2];
   const date = new Date(`20${year}`, month, day, 5);

@@ -12,18 +12,15 @@
       "AmplifyAppId": "d2ma2xsnuu3nlm"
     },
     "categories": {
-      "function": {
-        "costco71e27d08CustomMessage": {
-          "REDIRECTURL": "/",
-          "EMAILSUBJECT": "Verify Your Account - nemonemonemo",
-          "EMAILMESSAGE": "Please use the link to verify your account",
-          "deploymentBucketName": "amplify-costco-dev-22420-deployment",
-          "s3Key": "amplify-builds/costco71e27d08CustomMessage-6273704c72772b6f627a-build.zip"
-        }
-      },
       "auth": {
         "costco71e27d08": {},
         "userPoolGroups": {}
+      },
+      "function": {
+        "costco71e27d08CustomMessage": {
+          "deploymentBucketName": "amplify-costco-dev-22420-deployment",
+          "s3Key": "amplify-builds/costco71e27d08CustomMessage-6273704c72772b6f627a-build.zip"
+        }
       },
       "hosting": {
         "amplifyhosting": {

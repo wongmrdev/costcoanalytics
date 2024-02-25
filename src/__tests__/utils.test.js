@@ -19,9 +19,9 @@ describe("utils", () => {
         },
       ];
       const result = data.map(utils.addStartDate);
-      expect(result[0].startDate).toEqual(new Date("2021-01-01T05:00:00.000Z"));
-      expect(result[1].startDate).toEqual(new Date("2021-02-10T05:00:00.000Z"));
-      expect(result[2].startDate).toEqual(new Date("2022-10-01T04:00:00.000Z"));
+      expect(result[0].startDate).toEqual(new Date("2021-01-01T10:00:00.000Z"));
+      expect(result[1].startDate).toEqual(new Date("2021-02-10T10:00:00.000Z"));
+      expect(result[2].startDate).toEqual(new Date("2022-10-01T09:00:00.000Z"));
     });
   });
 });
