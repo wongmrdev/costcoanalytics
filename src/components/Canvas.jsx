@@ -17,7 +17,7 @@ import { enUS } from "date-fns/locale";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import * as queries from "../graphql/queries";
 import { CouponContext } from "../App";
-import { generateClient } from "aws-amplify";
+import { generateClient } from 'aws-amplify/api'
 import ChartData from "./ChartData";
 import { addStartDate, sortDateAscending } from "../models/utils";
 
