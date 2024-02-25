@@ -43,7 +43,6 @@ const updatedAwsConfig = {
 };
 Amplify.configure(updatedAwsConfig);
 // Auth.configure(updatedAwsConfig);
-API.configure(updatedAwsConfig);
 export const CouponContext = React.createContext(); //allow global access of variables and functions,
 //must add Context Wrapper Provider with prop of the objects or functions to make global
 //<RecipeContext.Provider value={recipeContextValue}></RecipeContext.Provider>
