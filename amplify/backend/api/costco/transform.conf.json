@@ -6,5 +6,24 @@
             "ConflictHandler": "AUTOMERGE",
             "ConflictDetection": "VERSION"
         }
+    },
+    "StackMapping": {
+        "couponTable": "coupon",
+        "couponIAMRole": "coupon",
+        "couponDataSource": "coupon",
+        "SynccouponResolver": "coupon",
+        "GetcouponResolver": "coupon",
+        "ListcouponResolver": "coupon",
+        "CreatecouponResolver": "coupon",
+        "UpdatecouponResolver": "coupon",
+        "DeletecouponResolver": "coupon",
+        "QuerycouponsByItemNumberResolver": "coupon",
+        "QuerycouponsByItemNameResolver": "coupon",
+        "SubscriptiononCreateCouponResolver": "coupon",
+        "SubscriptiononUpdateCouponResolver": "coupon",
+        "SubscriptiononDeleteCouponResolver": "coupon",
+        "GetAttcouponTableStreamArn": "coupon",
+        "GetAttcouponDataSourceName": "coupon",
+        "GetAttcouponTableName": "coupon"
     }
 }
