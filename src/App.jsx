@@ -112,7 +112,7 @@ function App() {
       var couponsGot = await client.graphql({
         query: queries.listCoupons,
         variables: {
-          limit: 4000,
+          limit: 1500,
         },
       });
       setCoupons(couponsGot.data.listCoupons.items);
@@ -199,7 +199,7 @@ function App() {
           <CouponContext.Provider value={couponContextValue}>
             {selectedCoupon?.itemNumber === "No selected item" ||
             selectedCoupon?.itemNumber === "Item Numbers vary" ? null : (
-              <Canvas {...client}></Canvas>
+              <Canvas />
             )}
           </CouponContext.Provider>
           {!loading ? (

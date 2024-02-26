@@ -33,13 +33,13 @@ ChartJS.register(
   LinearScale,
   ChartDataLabels
 );
+const client = generateClient();
 
-export default function Canvas({ client = generateClient() }) {
+export default function Canvas() {
   const [selectedCouponData, setSelectedCouponData] = useState([]);
   const { selectedCoupon } = useContext(CouponContext);
 
   useEffect(() => {
-    console.log("running canvas useEffect");
     async function fetchData() {
       try {
         if (!selectedCoupon?.itemNumber)
@@ -55,8 +55,8 @@ export default function Canvas({ client = generateClient() }) {
     }
     fetchData().then((data) =>
       setSelectedCouponData(data.data.couponsByItemNumber.items)
-    );
-  }, [selectedCoupon, client]);
+    ).catch((err) => console.error(err));
+  }, [selectedCoupon]);
 
   const augmentedData =
     selectedCouponData?.map(addStartDate).sort(sortDateAscending) || new Date();
