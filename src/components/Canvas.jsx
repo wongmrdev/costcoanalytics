@@ -56,7 +56,7 @@ export default function Canvas({ client = generateClient() }) {
     fetchData().then((data) =>
       setSelectedCouponData(data.data.couponsByItemNumber.items)
     );
-  }, [selectedCoupon]);
+  }, [selectedCoupon, client]);
 
   const augmentedData =
     selectedCouponData?.map(addStartDate).sort(sortDateAscending) || new Date();
