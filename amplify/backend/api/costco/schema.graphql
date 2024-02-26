@@ -1,9 +1,6 @@
 type coupon
   @auth(
-    rules: [
-      { allow: owner, ownerField: "owner", operations: [create, update, delete] }
-      { allow: groups, groups: ["Admin"] }
-    ]
+    rules: [{ allow: public, operations: [read] }, { allow: owner }]
   )
   @model
   @key(

@@ -34,7 +34,7 @@ ChartJS.register(
   ChartDataLabels
 );
 
-export default function Canvas() {
+export default function Canvas({ client = generateClient() }) {
   const [selectedCouponData, setSelectedCouponData] = useState([]);
   const { selectedCoupon } = useContext(CouponContext);
 
@@ -44,7 +44,7 @@ export default function Canvas() {
       try {
         if (!selectedCoupon?.itemNumber)
           return alert("This item does not have an item number for lookup");
-        return await generateClient.graphql({
+        return await client.graphql({
           query: queries.couponsByItemNumber,
           variables: { itemNumber: selectedCoupon.itemNumber },
         });

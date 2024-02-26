@@ -40,6 +40,7 @@ const updatedAwsConfig = {
       : productionRedirectSignOut,
   },
 };
+const client = generateClient();
 Amplify.configure(updatedAwsConfig);
 // Auth.configure(updatedAwsConfig);
 export const CouponContext = React.createContext(); //allow global access of variables and functions,
@@ -108,7 +109,7 @@ function App() {
   useEffect(() => {
     setLoading(true);
     async function fetchData() {
-      var couponsGot = await generateClient.graphql({
+      var couponsGot = await client.graphql({
         query: queries.listCoupons,
         variables: {
           limit: 4000,
@@ -127,7 +128,7 @@ function App() {
   useEffect(() => {
     setLoading(true);
     async function fetchData() {
-      var couponsGot = await generateClient.graphql({
+      var couponsGot = await client.graphql({
         query: queries.listCoupons,
         variables: {
           limit: 1000,
@@ -198,7 +199,7 @@ function App() {
           <CouponContext.Provider value={couponContextValue}>
             {selectedCoupon?.itemNumber === "No selected item" ||
             selectedCoupon?.itemNumber === "Item Numbers vary" ? null : (
-              <Canvas></Canvas>
+              <Canvas {...client}></Canvas>
             )}
           </CouponContext.Provider>
           {!loading ? (

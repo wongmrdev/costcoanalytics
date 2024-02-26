@@ -49,6 +49,8 @@
   "devDependencies": {
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
+    "eslint-plugin-jest": "^27.9.0",
+    "eslint-plugin-testing-library": "^6.2.0",
     "graphql": "^14.0.0",
     "graphql-tag": "^2.12.4",
     "modern-random-ua": "^1.0.3",

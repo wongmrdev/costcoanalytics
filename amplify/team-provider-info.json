@@ -19,7 +19,10 @@
       "function": {
         "costco71e27d08CustomMessage": {
           "deploymentBucketName": "amplify-costco-dev-22420-deployment",
-          "s3Key": "amplify-builds/costco71e27d08CustomMessage-6273704c72772b6f627a-build.zip"
+          "s3Key": "amplify-builds/costco71e27d08CustomMessage-6273704c72772b6f627a-build.zip",
+          "REDIRECTURL": "",
+          "EMAILSUBJECT": "",
+          "EMAILMESSAGE": ""
         }
       },
       "hosting": {
