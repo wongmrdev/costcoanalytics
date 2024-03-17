@@ -35,7 +35,7 @@
     "authSelections": "userPoolOnly",
     "resourceName": "costco71e27d08",
     "serviceName": "Cognito",
-    "useDefault": "manual",
+    "useDefault": "defaultSocial",
     "sharedId": "71e27d08",
     "userPoolGroupList": [
       "costco"
@@ -82,14 +82,14 @@
     "authTriggerConnections": [
       "{\"triggerType\":\"CustomMessage\",\"lambdaFunctionName\":\"costco71e27d08CustomMessage\"}"
     ],
-    "hostedUIDomainName": "costcobfad9e78-bfad9e78",
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "hostedUIDomainName": "costco7c277b45-7c277b45",
     "authProvidersUserPool": [
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "parentStack": {
-      "Ref": "AWS::StackId"
-    },
     "authProviders": [],
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\",\"https://master.d2ma2xsnuu3nlm.amplifyapp.com/\"],\"LogoutURLs\":[\"http://localhost:3000/\",\"https://master.d2ma2xsnuu3nlm.amplifyapp.com/\"]}"
   }
