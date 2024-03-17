@@ -18,8 +18,7 @@ const isLocalhost = Boolean(
     // [::1] is the IPv6 localhost address.
     window.location.hostname === "[::1]" ||
     // 127.0.0.1/8 is considered localhost for IPv4.
-    window.location.hostname.match(
-    )
+    window.location.hostname.match("127.0.0.1")
 );
 
 // Assuming you have two redirect URIs, and the first is for localhost and second is for production
@@ -40,6 +39,7 @@ const updatedAwsConfig = {
       : productionRedirectSignOut,
   },
 };
+console.log({updatedAwsConfig});
 const client = generateClient();
 Amplify.configure(updatedAwsConfig);
 // Auth.configure(updatedAwsConfig);
@@ -131,7 +131,7 @@ function App() {
       var couponsGot = await client.graphql({
         query: queries.listCoupons,
         variables: {
-          limit: 1000,
+          limit: 150,
           filter: { itemName: { contains: debouncedSearchValue } },
         },
       });
