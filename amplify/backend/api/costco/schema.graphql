@@ -1,6 +1,6 @@
 type coupon
   @auth(
-    rules: [{ allow: public, operations: [read] }, { allow: owner, operations: [create, read, update, delete]}]
+    rules: [{ allow: public, operations: [read] }, { allow: owner }]
   )
   @model
   @key(
