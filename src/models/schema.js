@@ -114,19 +114,6 @@ export const schema = {
                         ],
                         "queryField": "couponsByItemName"
                     }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
                 }
             ]
         }

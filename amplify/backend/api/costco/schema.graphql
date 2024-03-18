@@ -1,7 +1,4 @@
 type coupon
-  @auth(
-    rules: [{ allow: public, operations: [read] }]
-  )
   @model
   @key(
     name: "couponsByItemNumber"
