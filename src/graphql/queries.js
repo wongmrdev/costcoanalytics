@@ -1,6 +1,46 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const syncCoupons = /* GraphQL */ `
+  query SyncCoupons(
+    $filter: ModelcouponFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCoupons(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        dateValid
+        itemNumber
+        itemName
+        itemDescription
+        itemOther
+        itemVaries
+        itemShipping
+        itemYourCost
+        itemDiscountDollar
+        itemDiscountCents
+        itemDiscountLimit
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
 export const getCoupon = /* GraphQL */ `
   query GetCoupon($id: ID!) {
     getCoupon(id: $id) {
@@ -116,46 +156,6 @@ export const couponsByItemName = /* GraphQL */ `
       filter: $filter
       limit: $limit
       nextToken: $nextToken
-    ) {
-      items {
-        id
-        dateValid
-        itemNumber
-        itemName
-        itemDescription
-        itemOther
-        itemVaries
-        itemShipping
-        itemYourCost
-        itemDiscountDollar
-        itemDiscountCents
-        itemDiscountLimit
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
-      __typename
-    }
-  }
-`;
-export const syncCoupons = /* GraphQL */ `
-  query SyncCoupons(
-    $filter: ModelcouponFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncCoupons(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
     ) {
       items {
         id
