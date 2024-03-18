@@ -1,6 +1,15 @@
 {
   "api": {
     "costco": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "costco71e27d08"
+        }
+      ],
       "output": {
         "authConfig": {
           "additionalAuthenticationProviders": [
@@ -13,6 +22,7 @@
           ],
           "defaultAuthentication": {
             "apiKeyConfig": {
+              "apiKeyExpirationDate": "2025-03-18T04:28:10.304Z",
               "apiKeyExpirationDays": 365,
               "description": "costcographqlapikey"
             },
@@ -93,64 +103,6 @@
       "lastPushTimeStamp": "2022-04-11T05:13:01.644Z",
       "service": "amplifyhosting",
       "type": "cicd"
-    }
-  },
-  "parameters": {
-    "AMPLIFY_function_costco71e27d08CustomMessage_EMAILMESSAGE": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "costco71e27d08CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_costco71e27d08CustomMessage_EMAILSUBJECT": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "costco71e27d08CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_costco71e27d08CustomMessage_REDIRECTURL": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "costco71e27d08CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_costco71e27d08CustomMessage_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "costco71e27d08CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_costco71e27d08CustomMessage_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "costco71e27d08CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_hosting_amplifyhosting_appId": {
-      "usedBy": [
-        {
-          "category": "hosting",
-          "resourceName": "amplifyhosting"
-        }
-      ]
-    },
-    "AMPLIFY_hosting_amplifyhosting_type": {
-      "usedBy": [
-        {
-          "category": "hosting",
-          "resourceName": "amplifyhosting"
-        }
-      ]
     }
   }
 }
