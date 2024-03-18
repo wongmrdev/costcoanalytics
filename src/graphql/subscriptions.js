@@ -2,8 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateCoupon = /* GraphQL */ `
-  subscription OnCreateCoupon {
-    onCreateCoupon {
+  subscription OnCreateCoupon($owner: String) {
+    onCreateCoupon(owner: $owner) {
       id
       dateValid
       itemNumber
@@ -27,8 +27,8 @@ export const onCreateCoupon = /* GraphQL */ `
   }
 `;
 export const onUpdateCoupon = /* GraphQL */ `
-  subscription OnUpdateCoupon {
-    onUpdateCoupon {
+  subscription OnUpdateCoupon($owner: String) {
+    onUpdateCoupon(owner: $owner) {
       id
       dateValid
       itemNumber
@@ -52,8 +52,8 @@ export const onUpdateCoupon = /* GraphQL */ `
   }
 `;
 export const onDeleteCoupon = /* GraphQL */ `
-  subscription OnDeleteCoupon {
-    onDeleteCoupon {
+  subscription OnDeleteCoupon($owner: String) {
+    onDeleteCoupon(owner: $owner) {
       id
       dateValid
       itemNumber

@@ -131,6 +131,7 @@ export const schema = {
                                 "allow": "owner",
                                 "operations": [
                                     "create",
+                                    "read",
                                     "update",
                                     "delete"
                                 ],
