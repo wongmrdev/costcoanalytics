@@ -24,7 +24,6 @@ export const createCoupon = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -52,7 +51,6 @@ export const updateCoupon = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -80,7 +78,6 @@ export const deleteCoupon = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
