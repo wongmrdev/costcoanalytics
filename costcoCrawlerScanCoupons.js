@@ -15,7 +15,7 @@ var params = {
   Limit: 2000,
 };
 // eslint-disable-next-line no-useless-escape
-const regex1 = new RegExp(`Valid April 12\u00A0-\u00A0May 7, 2023`, "i");
+const regex1 = new RegExp(`Valid 3/5/24 - 3/31/24`, "i");
 docClient.scan(params, function (err, data) {
   if (err) {
     console.log(err);

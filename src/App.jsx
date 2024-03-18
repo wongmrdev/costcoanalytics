@@ -106,24 +106,6 @@ function App() {
     selectedCoupon,
   };
 
-  useEffect(() => {
-    setLoading(true);
-    async function fetchData() {
-      var couponsGot = await client.graphql({
-        query: queries.listCoupons,
-        variables: {
-          limit: 1500,
-        },
-      });
-      setCoupons(couponsGot.data.listCoupons.items);
-      setNextToken(couponsGot.data.nextToken);
-      setLoading(false);
-    }
-    fetchData();
-    return () => {
-      setLoading(false);
-    };
-  }, []);
 
   useEffect(() => {
     setLoading(true);

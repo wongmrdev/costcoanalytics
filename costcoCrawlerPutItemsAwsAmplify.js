@@ -29,7 +29,7 @@ const preparePageForTests = async (page) => {
   });
 };
 
-async function getCoupons() {
+async function crawlCouponsAndCreateCoupons() {
   try {
     const URL = "https://www.costco.com/online-offers.html";
     const browser = await puppeteer.launch({});
@@ -114,6 +114,7 @@ async function getCoupons() {
     `;
     var datenow = new Date().now;
 
+    console.log(process.env.API_COSTCO_GRAPHQLAPIKEYOUTPUT);
     coupons.forEach(async function (coupon) {
       console.log(coupon.itemNumber);
       const graphqlData = await axios({
@@ -159,4 +160,4 @@ async function getCoupons() {
   }
 }
 
-getCoupons();
+crawlCouponsAndCreateCoupons();
