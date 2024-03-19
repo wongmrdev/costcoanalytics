@@ -1,4 +1,5 @@
 import "./App.css";
+import { ThemeProvider, useTheme, View, Image } from '@aws-amplify/ui-react';
 import { Amplify } from "aws-amplify";
 import { generateClient } from 'aws-amplify/api';
 import '@aws-amplify/ui-react/styles.css';
@@ -140,73 +141,90 @@ function App() {
     }
   }
 
-  return (
-    <Authenticator>
-      {({ signOut, user }) => (
-        <div className="App">
-          <header
-            className="App-header"
-            style={{
-              display: Flex,
-              justifyContent: "space-between",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              padding: "0.25rem 0.5rem",
-              minHeight: "5vh",
-            }}
-          >
-            <StyledLogo>NemoNemoNemo v0.1</StyledLogo>
-            <div>
-              <StyledInput
-                placeholder="Search..."
-                type="text"
-                value={searchValue}
-                onChange={(e) => {
-                  setSearchValue(e.target.value);
-                  setSelectedCouponId("");
-                }}
-              ></StyledInput>{" "}
-              {searchValue ? (
-                <Icon
-                  ariaLabel="ClearSearch"
-                  as={MdClear}
-                  onClick={() => setSearchValue("")}
-                />
-              ) : null}
-            </div>
-            <StyledButton onClick={signOut}>Sign out</StyledButton>
-          </header>
+  const components = {
+    Header() {
+      const { tokens } = useTheme();
+  
+      return (
+        <View textAlign="center" padding={tokens.space.large}>
+          <Image
+            alt="NemoNemoNemo logo"
+            src="https://p1.hiclipart.com/preview/482/453/150/finding-nemo-vista-icons-findingnemo2-256-png-icon.jpg"
+          />
+        </View>
+      );
+    },
+  };  
 
-          <StyledItemName>{`${selectedCoupon?.itemName} - ${selectedCoupon?.itemNumber}`}</StyledItemName>
-          <CouponContext.Provider value={couponContextValue}>
-            {selectedCoupon?.itemNumber === "No selected item" ||
-            selectedCoupon?.itemNumber === "Item Numbers vary" ? null : (
-              <Canvas />
+  return (
+    <ThemeProvider>
+      <Authenticator components={components}>
+        {({ signOut, user }) => (
+          <div className="App">
+            <header
+              className="App-header"
+              style={{
+                display: Flex,
+                justifyContent: "space-between",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                padding: "0.25rem 0.5rem",
+                minHeight: "5vh",
+              }}
+            >
+              <StyledLogo>NemoNemoNemo v0.1</StyledLogo>
+              <div>
+                <StyledInput
+                  placeholder="Search..."
+                  type="text"
+                  value={searchValue}
+                  onChange={(e) => {
+                    setSearchValue(e.target.value);
+                    setSelectedCouponId("");
+                  }}
+                ></StyledInput>{" "}
+                {searchValue ? (
+                  <Icon
+                    ariaLabel="ClearSearch"
+                    as={MdClear}
+                    onClick={() => setSearchValue("")}
+                  />
+                ) : null}
+              </div>
+              <StyledButton onClick={signOut}>Sign out</StyledButton>
+            </header>
+
+            <StyledItemName>{`${selectedCoupon?.itemName} - ${selectedCoupon?.itemNumber}`}</StyledItemName>
+            <CouponContext.Provider value={couponContextValue}>
+              {selectedCoupon?.itemNumber === "No selected item" ||
+              selectedCoupon?.itemNumber === "Item Numbers vary" ? null : (
+                <Canvas />
+              )}
+            </CouponContext.Provider>
+            {!loading ? (
+              <StyledDiv>
+                {couponsDateDesc.map((coupon) => (
+                  <Item
+                    key={coupon.id}
+                    dateValid={coupon.dateValid.match(
+                      /\d{1,2}[/ .-]\d{1,2}[/ .-]\d{2}/
+                    )}
+                    itemName={coupon.itemName}
+                    itemNumber={coupon.itemNumber}
+                    itemYourCost={coupon.itemYourCost}
+                    itemDiscountDollar={coupon.itemDiscountDollar}
+                    itemDiscountCents={coupon.itemDiscountCents}
+                    onClick={() => handleCouponSelect(coupon.id)}
+                  ></Item>
+                ))}
+              </StyledDiv>
+            ) : (
+              <div>loading...</div>
             )}
-          </CouponContext.Provider>
-          {!loading ? (
-            <StyledDiv>
-              {couponsDateDesc.map((coupon) => (
-                <Item
-                  key={coupon.id}
-                  dateValid={coupon.dateValid.match(
-                    /\d{1,2}[/ .-]\d{1,2}[/ .-]\d{2}/
-                  )}
-                  itemName={coupon.itemName}
-                  itemNumber={coupon.itemNumber}
-                  itemYourCost={coupon.itemYourCost}
-                  itemDiscountDollar={coupon.itemDiscountDollar}
-                  itemDiscountCents={coupon.itemDiscountCents}
-                  onClick={() => handleCouponSelect(coupon.id)}
-                ></Item>
-              ))}
-            </StyledDiv>
-          ) : (
-            <div>loading...</div>
-          )}
-        </div>
-      )}
-    </Authenticator>
+          </div>
+        )}
+      </Authenticator>
+    </ThemeProvider>
   );
 }
 
