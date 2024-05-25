@@ -1,16 +1,15 @@
-require('dotenv').config();
-const puppeteer = require('puppeteer');
-const AWS = require('aws-sdk');
-const random_ua = require('modern-random-ua');
-const { v4: uuidv4 } = require('uuid');
-const axios = require('axios');
-const gql = require('graphql-tag');
-const graphql = require('graphql');
-const { print } = graphql;
+import { DynamoDBClient  } from "@aws-sdk/client-dynamodb";
+import dotenv from 'dotenv';
+dotenv.config();
 
-// const  { Amplify, API, Datastore } = require('aws-amplify');
-// const {awsconfig} = require("./src/aws-exports")
-// Amplify.configure(awsconfig);
+import puppeteer from 'puppeteer';
+import random_ua from 'modern-random-ua';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+import gql from 'graphql-tag';
+import { graphql, print } from 'graphql';
+
+
 
 const preparePageForTests = async (page) => {
   const userAgent = random_ua.generate();
@@ -30,6 +29,7 @@ const preparePageForTests = async (page) => {
 };
 
 async function crawlCouponsAndCreateCoupons() {
+  console.log('crawlCouponsAndCreateCoupons');
   try {
     const URL = 'https://www.costco.com/online-offers.html';
     const browser = await puppeteer.launch({});
@@ -53,7 +53,7 @@ async function crawlCouponsAndCreateCoupons() {
       )?.textContent;
       var couponsList = [];
       var couponsList = ecoCouponNodeList.map((ecoCouponNodeList) => ({
-        dateValid: 'Valid 4/10/24 - 5/5/24',
+        dateValid: 'Valid 5/15/24 - 6/9/24',
         itemNumber:
           ecoCouponNodeList.querySelector('div.eco-items')?.textContent ?? '',
         itemName:
@@ -84,12 +84,13 @@ async function crawlCouponsAndCreateCoupons() {
       return couponsList;
     });
     await browser.close();
+    console.log(coupons.length);
 
-    //Upload to AWS
-    AWS.config.update({
-      region: 'us-west-2',
-      endpoint: 'https://dynamodb.us-west-2.amazonaws.com',
-    });
+    // Set the AWS Region
+    const REGION = "us-west-2"; 
+
+    // Create an Amazon DynamoDB service client object
+    const dbclient = new DynamoDBClient({ region: REGION });
 
     const createCoupon = gql`
       mutation CreateCoupon(
@@ -161,7 +162,7 @@ async function crawlCouponsAndCreateCoupons() {
       }
     });
   } catch (err) {
-    console.log('error posting to appsync: ', err);
+    console.log('error crawling coupons: ', err);
   }
 }
 
