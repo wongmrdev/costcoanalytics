@@ -6,7 +6,7 @@
   "dependencies": {
     "@aws-amplify/core": "^6.0.17",
     "@aws-amplify/ui-react": "^6.1.4",
-    "@aws-sdk/client-dynamodb": "^3.584.0",
+    "@aws-sdk/client-dynamodb": "^3.602.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",

@@ -53,7 +53,7 @@ async function crawlCouponsAndCreateCoupons() {
       )?.textContent;
       var couponsList = [];
       var couponsList = ecoCouponNodeList.map((ecoCouponNodeList) => ({
-        dateValid: 'Valid 5/15/24 - 6/9/24',
+        dateValid: 'Valid 9/25/24 - 10/20/24',
         itemNumber:
           ecoCouponNodeList.querySelector('div.eco-items')?.textContent ?? '',
         itemName:
@@ -149,6 +149,7 @@ async function crawlCouponsAndCreateCoupons() {
         });
 
         const body = {
+          coupon: coupon,
           message: 'successfully created Coupon!',
         };
         console.log(body);
