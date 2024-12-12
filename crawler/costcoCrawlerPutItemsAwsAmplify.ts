@@ -102,18 +102,32 @@ async function crawlCouponsAndCreateCoupons(dryRun: boolean) {
           element
             .querySelector(':scope > div:nth-child(3)')
             ?.textContent?.trim() ?? null;
-        const descriptionPattern = /^(?!Item|Limit)(.*?)(?=\s+(?:Item|Limit)|$)/i
+        const descriptionPattern =
+          /^(?!Item|Limit)(.*?)(?=\s+(?:Item|Limit)|$)/i;
         const itemNumberPattern = /Item [0-9, ]+(?=,)|Item numbers vary/i;
-        const limitPattern = /Limit.+?(?:\.)/i
-        const otherDetailsPattern = /(Item[0-9, ]+[,.])(^| )?(Limit.+?\.)?(^| )?(.*)?/i
-        const discountSecondaryValuePattern = /(?:after \$)([0-9]+)(?: off)/i
-        const shippingPattern = /plus s&h/i
-        const description = itemDetails?.match(descriptionPattern)?.[0]?.trim() ?? null;
-        const itemNumber = itemDetails?.match(itemNumberPattern)?.[0]?.trim() ?? null;
-        const limit = itemDetails?.match(limitPattern)?.[0]?.trim().slice(0, -1).toUpperCase() ?? null;
-        const otherDetails = itemDetails?.match(otherDetailsPattern)?.[5]?.trim() ?? null;
-        const discountSecondaryValue = discountSecondaryText?.match(discountSecondaryValuePattern)?.[1]?.trim() ?? null;
-        const shipping = discountSecondaryText?.match(shippingPattern)?.[0] ?? null;
+        const limitPattern = /Limit.+?(?:\.)/i;
+        const otherDetailsPattern =
+          /(Item[0-9, ]+[,.])(^| )?(Limit.+?\.)?(^| )?(.*)?/i;
+        const discountSecondaryValuePattern = /(?:after \$)([0-9,]+)(?: off)/i;
+        const shippingPattern = /plus s&h/i;
+        const description =
+          itemDetails?.match(descriptionPattern)?.[0]?.trim() ?? null;
+        const itemNumber =
+          itemDetails?.match(itemNumberPattern)?.[0]?.trim() ?? null;
+        const limit =
+          itemDetails
+            ?.match(limitPattern)?.[0]
+            ?.trim()
+            .slice(0, -1)
+            .toUpperCase() ?? null;
+        const otherDetails =
+          itemDetails?.match(otherDetailsPattern)?.[5]?.trim() ?? null;
+        const discountSecondaryValue =
+          discountSecondaryText
+            ?.match(discountSecondaryValuePattern)?.[1]
+            ?.trim() ?? null;
+        const shipping =
+          discountSecondaryText?.match(shippingPattern)?.[0] ?? null;
 
         if (itemNumber === null) return null; // ignore coupons without item numbers
         return {
@@ -124,10 +138,16 @@ async function crawlCouponsAndCreateCoupons(dryRun: boolean) {
           itemLimit: limit,
           itemNumber: itemNumber,
           itemOther: otherDetails,
-          itemDiscountDollar: discountSecondaryText ? discountSecondaryValue : discountPrimaryDollar,
-          itemDiscountCents: discountSecondaryText ? null : discountPrimaryCents,
-          itemYourCost: discountSecondaryText ? `${discountPrimaryDollar}.${discountPrimaryCents ? discountPrimaryCents : '00'}` : null,
-          itemShipping: shipping
+          itemDiscountDollar: discountSecondaryText
+            ? discountSecondaryValue
+            : discountPrimaryDollar,
+          itemDiscountCents: discountSecondaryText
+            ? null
+            : discountPrimaryCents,
+          itemYourCost: discountSecondaryText
+            ? `${discountPrimaryDollar}.${discountPrimaryCents ? discountPrimaryCents : '00'}`
+            : null,
+          itemShipping: shipping,
         };
       });
     });
