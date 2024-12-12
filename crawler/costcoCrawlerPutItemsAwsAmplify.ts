@@ -71,84 +71,67 @@ async function crawlCouponsAndCreateCoupons(dryRun: boolean) {
       const dateValid = 'Valid 11/20/24 - 12/24/24';
       const elements = [
         ...document.querySelectorAll(
-          'div[data-testid="below_the_ad_text_content"]',
+          'div[data-testid="below_the_ad_text_content"] > div ',
         ),
       ];
 
       return elements.map((element, index): Coupon | null => {
-        const itemDiscountPrefixSymbol =
-          element
-            .querySelector(
-              'div[data-testid="prices_and_percentages_prices"] div:nth-child(1)',
-            )
-            ?.innerHTML.trim() ?? null;
-        const itemDiscountDollar =
+        const discountPrimaryDollar =
           element
             .querySelector(
               'div[data-testid="prices_and_percentages_prices"] div:nth-child(2) > div:nth-child(1)',
             )
-            ?.innerHTML.trim() ?? null;
-        const itemDiscountCents =
+            ?.textContent?.trim() ?? null;
+        const discountPrimaryCents =
           element
             .querySelector(
               'div[data-testid="prices_and_percentages_prices"] div:nth-child(2) > div:nth-child(2)',
             )
-            ?.innerHTML.trim() ?? null;
-        const discountText =
+            ?.textContent?.trim() ?? null;
+        const discountSecondaryText =
           element
             .querySelector(
               'div[data-testid="Text_prices_and_percentages_append_text"]',
             )
-            ?.innerHTML.trim() ?? null;
+            ?.textContent?.trim() ?? null;
         const itemName =
           element
-            .querySelector('div div[data-testid="Text"]')
-            ?.innerHTML.trim() ?? null;
-        if (
-          [
-            itemDiscountPrefixSymbol,
-            itemDiscountDollar,
-            itemDiscountCents,
-            discountText,
-            itemName,
-          ].every((item) => item === null)
-        )
-          return null;
+            .querySelector(':scope > div:nth-child(2)')
+            ?.textContent?.trim() ?? null;
+        const itemDetails =
+          element
+            .querySelector(':scope > div:nth-child(3)')
+            ?.textContent?.trim() ?? null;
+        const descriptionPattern = /^(?!Item|Limit)(.*?)(?=\s+(?:Item|Limit)|$)/i
+        const itemNumberPattern = /Item [0-9, ]+(?=,)|Item numbers vary/i;
+        const limitPattern = /Limit.+?(?:\.)/i
+        const otherDetailsPattern = /(Item[0-9, ]+[,.])(^| )?(Limit.+?\.)?(^| )?(.*)?/i
+        const discountSecondaryValuePattern = /(?:after \$)([0-9]+)(?: off)/i
+        const shippingPattern = /plus s&h/i
+        const description = itemDetails?.match(descriptionPattern)?.[0]?.trim() ?? null;
+        const itemNumber = itemDetails?.match(itemNumberPattern)?.[0]?.trim() ?? null;
+        const limit = itemDetails?.match(limitPattern)?.[0]?.trim().slice(0, -1).toUpperCase() ?? null;
+        const otherDetails = itemDetails?.match(otherDetailsPattern)?.[5]?.trim() ?? null;
+        const discountSecondaryValue = discountSecondaryText?.match(discountSecondaryValuePattern)?.[1]?.trim() ?? null;
+        const shipping = discountSecondaryText?.match(shippingPattern)?.[0] ?? null;
+
+        if (itemNumber === null) return null; // ignore coupons without item numbers
         return {
           dateValid: dateValid,
-          itemDiscountSummary: discountText,
+          itemDiscountSummary: discountSecondaryText,
           itemName: itemName,
-          itemDescription: 'itemDescription',
-          itemLimit: 'itemLimit',
-          itemNumber: 'itemNumber',
-          itemShipping: 'itemShipping',
-          itemDiscountDollar: itemDiscountDollar,
-          itemDiscountCents: itemDiscountCents,
-          itemYourCost: `${itemDiscountDollar}.${itemDiscountCents}`,
+          itemDescription: description,
+          itemLimit: limit,
+          itemNumber: itemNumber,
+          itemOther: otherDetails,
+          itemDiscountDollar: discountSecondaryText ? discountSecondaryValue : discountPrimaryDollar,
+          itemDiscountCents: discountSecondaryText ? null : discountPrimaryCents,
+          itemYourCost: discountSecondaryText ? `${discountPrimaryDollar}.${discountPrimaryCents ? discountPrimaryCents : '00'}` : null,
+          itemShipping: shipping
         };
       });
     });
     console.log('coupons:', coupons);
-
-    const couponsElementsXML = await page.evaluate(() => {
-      const couponElements = [
-        ...document.querySelectorAll(
-          'div[data-testid="below_the_ad_text_content"] ',
-        ),
-      ].map((node) => {
-        const serializer = new XMLSerializer();
-        const rawHTML = serializer.serializeToString(node);
-        const formattedHTML = rawHTML.replace(/></g, '>\n<'); // Simple line-break insertion
-        return formattedHTML;
-      });
-
-      if (!couponElements) {
-        return 'Not found';
-      }
-
-      return couponElements;
-    });
-    console.log('couponsElementsXML:', couponsElementsXML.slice(0, 5));
 
     await browser.close();
 
@@ -183,7 +166,6 @@ async function crawlCouponsAndCreateCoupons(dryRun: boolean) {
     if (dryRun) console.log('Dry Run: ', dryRun);
     console.log(`found ${coupons.length} coupons on ${datenow.toISOString()}`);
 
-    console.log(process.env.API_COSTCO_GRAPHQLAPIKEYOUTPUT);
     if (coupons.filter(isCoupon).length === 0)
       throw new Error('No Coupons found');
 
@@ -204,7 +186,7 @@ async function crawlCouponsAndCreateCoupons(dryRun: boolean) {
                 dateValid: coupon.dateValid,
                 itemName: coupon.itemName,
                 itemDescription: coupon.itemDescription,
-                itemOther: null,
+                itemOther: coupon.itemOther,
                 itemVaries: null,
                 itemShipping: coupon.itemShipping,
                 itemYourCost: coupon.itemYourCost,

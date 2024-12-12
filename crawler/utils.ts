@@ -4,11 +4,12 @@ export type Coupon = {
   itemDiscountCents: string | null;
   itemDiscountSummary: string | null;
   itemName: string | null;
-  itemDescription?: string;
-  itemLimit?: string;
+  itemDescription: string | null;
+  itemLimit: string | null;
   itemNumber: string;
-  itemShipping?: string;
+  itemShipping: string | null;
   itemYourCost: string | null;
+  itemOther: string | null;
 };
 
 export function isCoupon(coupon: Coupon | null): coupon is Coupon {

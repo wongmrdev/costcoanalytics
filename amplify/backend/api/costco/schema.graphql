@@ -9,6 +9,11 @@ type coupon
     name: "couponsByItemName"
     fields: ["itemName"]
     queryField: "couponsByItemName"
+  )
+  @key(
+    name: "ByDateValid"
+    fields: ["dateValid"]
+    queryField: "listCouponsByDateValid"
   ) {
   id: ID!
   dateValid: String
