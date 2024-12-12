@@ -114,6 +114,16 @@ export const schema = {
                         ],
                         "queryField": "couponsByItemName"
                     }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "ByDateValid",
+                        "fields": [
+                            "dateValid"
+                        ],
+                        "queryField": "listCouponsByDateValid"
+                    }
                 }
             ]
         }
@@ -121,5 +131,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "c979b217f305e6075eeaba4bcf683b89"
+    "version": "c528d853410df231b65bd02b17aae529"
 };

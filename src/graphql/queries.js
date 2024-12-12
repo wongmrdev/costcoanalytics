@@ -179,3 +179,44 @@ export const couponsByItemName = /* GraphQL */ `
     }
   }
 `;
+export const listCouponsByDateValid = /* GraphQL */ `
+  query ListCouponsByDateValid(
+    $dateValid: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelcouponFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCouponsByDateValid(
+      dateValid: $dateValid
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        dateValid
+        itemNumber
+        itemName
+        itemDescription
+        itemOther
+        itemVaries
+        itemShipping
+        itemYourCost
+        itemDiscountDollar
+        itemDiscountCents
+        itemDiscountLimit
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
