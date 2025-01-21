@@ -1,5 +1,12 @@
 type coupon
   @model
+  @aws_cognito_user_pools
+  @auth(
+    rules: [
+      { allow: public, operations: [read] }
+      { allow: owner, operations: [create, update, delete] }
+    ]
+  )
   @key(
     name: "couponsByItemNumber"
     fields: ["itemNumber"]
