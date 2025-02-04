@@ -27,5 +27,5 @@ npx tsc
 
 ```bash
 # run the script
-node ./dist/crawler/costcoCrawelrPutItemsAwsAmplify.js
+node ./dist/crawler/costcoCrawlerPutItemsAwsAmplify.js
 ```
