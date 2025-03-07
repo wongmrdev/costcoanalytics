@@ -11,6 +11,7 @@ import { type Coupon, isCoupon } from './utils.js';
 
 const preparePageForTests = async (page: puppeteer.Page) => {
   const userAgent: string = random_ua.generate();
+  // const userAgent: string = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36';
   await page.setUserAgent(userAgent);
   await page.evaluateOnNewDocument(() => {
     Object.defineProperty(navigator, 'webdriver', {
@@ -32,7 +33,8 @@ async function crawlCouponsAndCreateCoupons(dryRun: boolean) {
     const URL = 'https://www.costco.com/online-offers.html';
     const browser = await puppeteer.launch({});
     const page = await browser.newPage();
-    await page.setDefaultTimeout(60000);
+    await page.setViewport({ width: 1080, height: 1024 });
+    await page.setDefaultTimeout(11000);
     await preparePageForTests(page);
     await page.setRequestInterception(true);
     page.on('request', (request) => {
@@ -68,7 +70,7 @@ async function crawlCouponsAndCreateCoupons(dryRun: boolean) {
     }
 
     const coupons: (Coupon | null)[] = await page.evaluate(() => {
-      const dateValid = 'Valid 01/29/25 - 02/19/25';
+      const dateValid = 'Valid 03/05/25 - 03/30/25';
       const elements = [
         ...document.querySelectorAll(
           'div[data-testid="below_the_ad_text_content"] > div ',

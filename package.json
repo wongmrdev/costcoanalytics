@@ -57,7 +57,7 @@
     "graphql-tag": "^2.12.4",
     "modern-random-ua": "^1.0.3",
     "prettier": "^3.2.5",
-    "puppeteer": "^13.5.2",
+    "puppeteer": "^24.4.0",
     "typescript": "^4.9.5"
   }
 }
