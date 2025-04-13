@@ -229,6 +229,7 @@ export const listCouponsByDateValid = /* GraphQL */ `
 export const listCouponsByCreatedAt = /* GraphQL */ `
   query ListCouponsByCreatedAt(
     $createdAt: AWSDateTime
+    $id: ModelIDKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelcouponFilterInput
     $limit: Int
@@ -236,6 +237,7 @@ export const listCouponsByCreatedAt = /* GraphQL */ `
   ) {
     listCouponsByCreatedAt(
       createdAt: $createdAt
+      id: $id
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit

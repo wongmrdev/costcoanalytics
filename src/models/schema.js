@@ -148,7 +148,8 @@ export const schema = {
                     "properties": {
                         "name": "ByCreatedAt",
                         "fields": [
-                            "createdAt"
+                            "createdAt",
+                            "id"
                         ],
                         "queryField": "listCouponsByCreatedAt"
                     }
@@ -183,5 +184,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "cd073048e781f69df78a9666178d4397"
+    "version": "6109619ef25060ed0700e5b5612855b6"
 };
