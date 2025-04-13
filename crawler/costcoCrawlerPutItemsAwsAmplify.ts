@@ -70,7 +70,7 @@ async function crawlCouponsAndCreateCoupons(dryRun: boolean) {
     }
 
     const coupons: (Coupon | null)[] = await page.evaluate(() => {
-      const dateValid = 'Valid 03/05/25 - 03/30/25';
+      const dateValid = 'Valid 04/09/25 - 05/04/25';
       const elements = [
         ...document.querySelectorAll(
           'div[data-testid="below_the_ad_text_content"] > div ',
