@@ -24,7 +24,7 @@ type coupon
   )
   @key(
     name: "ByCreatedAt"
-    fields: ["createdAt"]
+    fields: ["createdAt", "id"]
     queryField: "listCouponsByCreatedAt"
   ) {
   id: ID!
