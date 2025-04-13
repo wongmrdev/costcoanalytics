@@ -111,16 +111,22 @@ function App() {
   useEffect(() => {
     setLoading(true);
     async function fetchData() {
-      var couponsGot = await client.graphql({
-        query: queries.listCoupons,
-        variables: {
-          limit: 150,
-          filter: { itemName: { contains: debouncedSearchValue } },
-        },
-      });
-      setCoupons(couponsGot.data.listCoupons.items);
-      setNextToken(couponsGot.data.nextToken);
-      setLoading(false);
+      try {
+        const couponsGot = await client.graphql({
+          query: queries.listCoupons,
+          variables: {
+            limit: 150,
+            sortDirection: "DESC", // Fetch the most recent coupons first
+            filter: { itemName: { contains: debouncedSearchValue } },
+          },
+        });
+        setCoupons(couponsGot.data.listCoupons.items);
+        setNextToken(couponsGot.data.listCoupons.nextToken);
+      } catch (error) {
+        console.error("Error fetching coupons:", error);
+      } finally {
+        setLoading(false);
+      }
     }
     fetchData();
     return () => {

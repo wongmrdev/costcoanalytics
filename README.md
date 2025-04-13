@@ -6,7 +6,7 @@
 
 The entire backend is hosted on AWS, managed by AWS amplify CI/CD from github repo.
 
-This app is built with ReactJS, AWS DynamoDB, AWS Amplify, AWS AppSync, git, NodeJS.
+This app is built with Typescript, ReactJS, AWS DynamoDB, AWS Amplify, AWS AppSync, git, NodeJS.
 
 Data is scraped from Costco's web coupon book issued every month by _costcoCrawlerPutItemsAwsAmplify_.js, deprecated versions of the data extraction were ~~costcoCrawlerPutItemsDynamoDB.js~~
 
