@@ -27,11 +27,12 @@ export const syncCoupons = /* GraphQL */ `
         itemDiscountDollar
         itemDiscountCents
         itemDiscountLimit
+        createdAt
+        updatedAt
         _version
         _deleted
         _lastChangedAt
-        createdAt
-        updatedAt
+        owner
         __typename
       }
       nextToken
@@ -55,11 +56,12 @@ export const getCoupon = /* GraphQL */ `
       itemDiscountDollar
       itemDiscountCents
       itemDiscountLimit
+      createdAt
+      updatedAt
       _version
       _deleted
       _lastChangedAt
-      createdAt
-      updatedAt
+      owner
       __typename
     }
   }
@@ -84,11 +86,12 @@ export const listCoupons = /* GraphQL */ `
         itemDiscountDollar
         itemDiscountCents
         itemDiscountLimit
+        createdAt
+        updatedAt
         _version
         _deleted
         _lastChangedAt
-        createdAt
-        updatedAt
+        owner
         __typename
       }
       nextToken
@@ -125,11 +128,12 @@ export const couponsByItemNumber = /* GraphQL */ `
         itemDiscountDollar
         itemDiscountCents
         itemDiscountLimit
+        createdAt
+        updatedAt
         _version
         _deleted
         _lastChangedAt
-        createdAt
-        updatedAt
+        owner
         __typename
       }
       nextToken
@@ -166,11 +170,12 @@ export const couponsByItemName = /* GraphQL */ `
         itemDiscountDollar
         itemDiscountCents
         itemDiscountLimit
+        createdAt
+        updatedAt
         _version
         _deleted
         _lastChangedAt
-        createdAt
-        updatedAt
+        owner
         __typename
       }
       nextToken
@@ -207,11 +212,54 @@ export const listCouponsByDateValid = /* GraphQL */ `
         itemDiscountDollar
         itemDiscountCents
         itemDiscountLimit
+        createdAt
+        updatedAt
         _version
         _deleted
         _lastChangedAt
+        owner
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const listCouponsByCreatedAt = /* GraphQL */ `
+  query ListCouponsByCreatedAt(
+    $createdAt: AWSDateTime
+    $sortDirection: ModelSortDirection
+    $filter: ModelcouponFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCouponsByCreatedAt(
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        dateValid
+        itemNumber
+        itemName
+        itemDescription
+        itemOther
+        itemVaries
+        itemShipping
+        itemYourCost
+        itemDiscountDollar
+        itemDiscountCents
+        itemDiscountLimit
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
         __typename
       }
       nextToken

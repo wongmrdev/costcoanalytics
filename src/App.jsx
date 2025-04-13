@@ -113,15 +113,16 @@ function App() {
     async function fetchData() {
       try {
         const couponsGot = await client.graphql({
-          query: queries.listCoupons,
+          query: queries.listCouponsByCreatedAt, // Use the new query
           variables: {
-            limit: 150,
+            createdAt: null, // Replace with a specific date if needed
             sortDirection: "DESC", // Fetch the most recent coupons first
             filter: { itemName: { contains: debouncedSearchValue } },
+            limit: 150,
           },
         });
-        setCoupons(couponsGot.data.listCoupons.items);
-        setNextToken(couponsGot.data.listCoupons.nextToken);
+        setCoupons(couponsGot.data.listCouponsByCreatedAt.items);
+        setNextToken(couponsGot.data.listCouponsByCreatedAt.nextToken);
       } catch (error) {
         console.error("Error fetching coupons:", error);
       } finally {

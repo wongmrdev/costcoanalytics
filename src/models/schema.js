@@ -86,6 +86,20 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -93,6 +107,10 @@ export const schema = {
             "attributes": [
                 {
                     "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "aws_cognito_user_pools",
                     "properties": {}
                 },
                 {
@@ -124,6 +142,40 @@ export const schema = {
                         ],
                         "queryField": "listCouponsByDateValid"
                     }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "ByCreatedAt",
+                        "fields": [
+                            "createdAt"
+                        ],
+                        "queryField": "listCouponsByCreatedAt"
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "read"
+                                ]
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ],
+                                "identityClaim": "cognito:username"
+                            }
+                        ]
+                    }
                 }
             ]
         }
@@ -131,5 +183,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "c528d853410df231b65bd02b17aae529"
+    "version": "cd073048e781f69df78a9666178d4397"
 };

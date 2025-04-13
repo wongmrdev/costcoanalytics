@@ -19,11 +19,12 @@ export const createCoupon = /* GraphQL */ `
       itemDiscountDollar
       itemDiscountCents
       itemDiscountLimit
+      createdAt
+      updatedAt
       _version
       _deleted
       _lastChangedAt
-      createdAt
-      updatedAt
+      owner
       __typename
     }
   }
@@ -46,11 +47,12 @@ export const updateCoupon = /* GraphQL */ `
       itemDiscountDollar
       itemDiscountCents
       itemDiscountLimit
+      createdAt
+      updatedAt
       _version
       _deleted
       _lastChangedAt
-      createdAt
-      updatedAt
+      owner
       __typename
     }
   }
@@ -73,11 +75,12 @@ export const deleteCoupon = /* GraphQL */ `
       itemDiscountDollar
       itemDiscountCents
       itemDiscountLimit
+      createdAt
+      updatedAt
       _version
       _deleted
       _lastChangedAt
-      createdAt
-      updatedAt
+      owner
       __typename
     }
   }

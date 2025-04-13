@@ -21,6 +21,11 @@ type coupon
     name: "ByDateValid"
     fields: ["dateValid"]
     queryField: "listCouponsByDateValid"
+  )
+  @key(
+    name: "ByCreatedAt"
+    fields: ["createdAt"]
+    queryField: "listCouponsByCreatedAt"
   ) {
   id: ID!
   dateValid: String
@@ -34,4 +39,6 @@ type coupon
   itemDiscountDollar: String
   itemDiscountCents: String
   itemDiscountLimit: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }
