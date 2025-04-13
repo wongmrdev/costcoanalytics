@@ -15,6 +15,8 @@ type Eagercoupon = {
   readonly itemDiscountDollar?: string | null;
   readonly itemDiscountCents?: string | null;
   readonly itemDiscountLimit?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
 }
 
 type Lazycoupon = {
@@ -30,6 +32,8 @@ type Lazycoupon = {
   readonly itemDiscountDollar?: string | null;
   readonly itemDiscountCents?: string | null;
   readonly itemDiscountLimit?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
 }
 
 export declare type coupon = LazyLoading extends LazyLoadingDisabled ? Eagercoupon : Lazycoupon
